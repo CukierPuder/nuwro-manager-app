@@ -1,0 +1,23 @@
+.parent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+h2 {
+  text-align: center;
+}
+
+mat-tab {
+  width: 50%;
+}
+
+.full-width-input-form {
+  width: 100%;
+}
+
+.card-content {
+  margin: 10px 10px 10px 10px;
+}
+
+

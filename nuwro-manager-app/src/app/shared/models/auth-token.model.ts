@@ -1,11 +1,7 @@
 export class AuthToken {
-  private token: string;
+  constructor(public token: string) { }
 
-  constructor(token: string) {
-    this.token = token;
-  }
-
-  getToken(): string {
-    return this.token;
+  validateToken(): boolean {
+    return true;
   }
 }

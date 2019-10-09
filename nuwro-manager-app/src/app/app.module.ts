@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 
+import { MaterialModule } from './material.module';
 import { LoginComponent } from './core/components/login/login.component';
 
 
@@ -20,7 +21,8 @@ import { LoginComponent } from './core/components/login/login.component';
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MaterialModule
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

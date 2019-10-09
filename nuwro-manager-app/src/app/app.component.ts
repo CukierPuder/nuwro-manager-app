@@ -11,7 +11,5 @@ export class AppComponent implements OnInit {
 
   constructor(private cookieService: CookieService) {}
 
-  ngOnInit(): void {
-    this.cookieService.set('authToken', 'token-value');
-  }
+  ngOnInit(): void { }
 }

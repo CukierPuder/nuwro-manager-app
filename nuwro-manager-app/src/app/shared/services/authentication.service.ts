@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
-import { AuthToken } from '../models/auth-token.model';
-import { User } from '../models/user.model';
 import { ApiEndpoints } from '../api-endpoints';
-import { FormGroup } from '@angular/forms';
+import { AuthToken } from '../models/auth-token.model';
+import { UserSignIn } from '../models/user.model';
 
 
 @Injectable({
@@ -15,7 +15,7 @@ export class AuthenticationService {
   private httpOptions;
   private apiEndpoints: ApiEndpoints;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private cookieService: CookieService) {
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json'
@@ -25,12 +25,26 @@ export class AuthenticationService {
     this.apiEndpoints = new ApiEndpoints();
   }
 
-  signIn(signInFormGroup: FormGroup): Observable<AuthToken> {
+  postUserCredentials(user: UserSignIn): Observable<AuthToken> {
     const formData = new FormData();
-    formData.append('email', signInFormGroup.get('email').value);
-    formData.append('password', signInFormGroup.get('password').value);
+    formData.append('email', user.email);
+    formData.append('password', user.password);
 
-    console.log(this.apiEndpoints.userSignIn());
     return this.http.post<AuthToken>(this.apiEndpoints.userSignIn(), formData);
+  }
+
+  signIn(authToken: string): void {
+    this.cookieService.set('authToken', authToken);
+  }
+
+  signOut(): void {
+    this.cookieService.delete('authToken');
+  }
+
+  isAuthenticated(): boolean {
+    if (this.cookieService.check('authToken')) {
+      return true;
+    }
+    return false;
   }
 }
