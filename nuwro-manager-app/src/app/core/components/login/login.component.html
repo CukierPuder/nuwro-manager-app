@@ -1,18 +1,14 @@
-<div class="parent">
-  <mat-card>
-    <h2>Hello lil scientist!</h2>
+<mat-card class="parent">
+  <mat-card-content class="card-content">
     <mat-tab-group>
-
       <mat-tab label="Sign In">
         <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
-          <mat-card-content class="card-content">
-            <mat-form-field class="full-width-input-form">
-              <input matInput type="email" placeholder="Email" formControlName="email">
-            </mat-form-field>
-            <mat-form-field class="full-width-input-form">
-              <input matInput type="password" placeholder="Password" formControlName="email">
-            </mat-form-field>
-          </mat-card-content>
+          <mat-form-field class="full-width-input-form">
+            <input matInput type="email" placeholder="Email" formControlName="email">
+          </mat-form-field>
+          <mat-form-field class="full-width-input-form">
+            <input matInput type="password" placeholder="Password" formControlName="email">
+          </mat-form-field>
           <mat-card-actions>
             <!-- TODO: submit button here -->
           </mat-card-actions>
@@ -23,5 +19,5 @@
       </mat-tab>
 
     </mat-tab-group>
-  </mat-card>
-</div>
+  </mat-card-content>
+</mat-card>
