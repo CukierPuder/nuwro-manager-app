@@ -3,14 +3,14 @@
     <mat-tab-group mat-align-tabs="center">
       <mat-tab label="Sign In">
         <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
-          <mat-form-field class="full-width-input-form">
+          <mat-form-field>
             <input matInput type="email" placeholder="Email" formControlName="email">
           </mat-form-field>
-          <mat-form-field class="full-width-input-form">
-            <input matInput type="password" placeholder="Password" formControlName="email">
+          <mat-form-field>
+            <input matInput type="password" placeholder="Password" formControlName="password">
           </mat-form-field>
           <mat-card-actions>
-            <!-- TODO: submit button here -->
+            <button mat-button>Sign in</button>
           </mat-card-actions>
         </form>
       </mat-tab>

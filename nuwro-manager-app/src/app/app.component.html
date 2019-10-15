@@ -1,1 +1,11 @@
-<app-login></app-login>
+<nav>
+  <a routerLink="/experiment-manager" routerLinkActive="active">Experiments</a>
+  <a routerLink="/measurement-manager" routerLinkActive="active">Measurements</a>
+  <a routerLink="/nuwroversion-manager" routerLinkActive="active">Nuwroversions</a>
+  <a routerLink="/login" *ngIf="!isAuthenticated; else signOutLink" routerLinkActive="active">Sign In</a>
+</nav>
+<router-outlet></router-outlet>
+
+<ng-template #signOutLink>
+  <a routerLink="/logout" routerLinkActive="active">Sign Out</a>
+</ng-template>

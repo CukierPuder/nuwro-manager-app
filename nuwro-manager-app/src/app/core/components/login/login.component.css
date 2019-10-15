@@ -2,8 +2,32 @@ h2 {
   text-align: center;
 }
 
-form{
+mat-card-content {
+  height: 100%;
+}
+
+mat-tab-group {
+  height: 100%;
+}
+
+mat-tab {
+  height: 100%;
+}
+
+form {
   overflow: hidden;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+button {
+  width: 100%;
+}
+
+.mat-tab-body-wrapper {
+  height: 100%;
 }
 
 .parent {
@@ -18,9 +42,6 @@ form{
   margin: auto;
 }
 
-.full-width-input-form {
-  width: 100%;
-}
 
 .card-content {
   margin: 10px 10px 10px 10px;
