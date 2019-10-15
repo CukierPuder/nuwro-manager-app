@@ -5,7 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
 
 import { ApiEndpoints } from '../api-endpoints';
 import { AuthToken } from '../models/auth-token.model';
-import { UserSignIn } from '../models/user.model';
+import { UserSignIn, UserSignUp } from '../models/user.model';
 
 
 @Injectable({
@@ -23,6 +23,15 @@ export class AuthenticationService {
     };
 
     this.apiEndpoints = new ApiEndpoints();
+  }
+
+  registerUser(user: UserSignUp): Observable<UserSignUp> {
+    const formData = new FormData();
+    formData.append('email', user.email);
+    formData.append('password', user.password);
+    formData.append('name', user.name);
+
+    return this.http.post<UserSignUp>(this.apiEndpoints.userSignUp(), formData);
   }
 
   postUserCredentials(user: UserSignIn): Observable<AuthToken> {

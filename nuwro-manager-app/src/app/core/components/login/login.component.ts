@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder} from '@angular/forms';
 import { AuthenticationService } from 'src/app/shared/services/authentication.service';
 import { AuthToken } from 'src/app/shared/models/auth-token.model';
-import { UserSignIn } from 'src/app/shared/models/user.model';
+import { UserSignIn, UserSignUp } from 'src/app/shared/models/user.model';
 
 
 @Component({
@@ -12,12 +12,16 @@ import { UserSignIn } from 'src/app/shared/models/user.model';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  errorMessage: string = '';
-  messageHidden: boolean = true;
-
+  errorMessage = '';
+  messageHidden = true;
   signInForm = this.formBuilder.group({
     email: [''],
     password: ['']
+  });
+  signUpForm = this.formBuilder.group({
+    email: [''],
+    password: [''],
+    username: ['']
   });
 
   constructor(
@@ -29,7 +33,8 @@ export class LoginComponent implements OnInit {
     this.authService.signOut();
   }
 
-  onSubmit(): void {
+  onSignInButtonClicked(): void {
+    this.clearMessage();
     const userInstance = new UserSignIn(
       this.signInForm.get('email').value,
       this.signInForm.get('password').value
@@ -51,7 +56,30 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  displayMessage(message: string) {
+  onSignUpButtonClicked(): void {
+    this.clearMessage();
+    const userInstance = new UserSignUp(
+      this.signUpForm.get('email').value,
+      this.signUpForm.get('password').value,
+      this.signUpForm.get('username').value
+    );
+
+    this.authService.registerUser(userInstance).subscribe(
+      (res) => {
+        // TODO: redirect to login tab and provide the given email address
+      },
+      (err) => {
+        this.displayMessage(err.status + '\n' + err.statusText);
+      }
+    );
+  }
+
+  private clearMessage(): void {
+    this.errorMessage = '';
+    this.messageHidden = true;
+  }
+
+  private displayMessage(message: string): void {
     this.errorMessage = message;
     this.messageHidden = false;
   }
