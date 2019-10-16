@@ -1,0 +1,10 @@
+#main-nav {
+  float: left;
+  width: 90%;
+  overflow: hidden;
+}
+
+#sign-in-nav {
+  overflow: hidden;
+  text-align: right;
+}

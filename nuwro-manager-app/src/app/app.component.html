@@ -1,11 +1,16 @@
-<nav>
-  <a routerLink="/experiment-manager" routerLinkActive="active">Experiments</a>
-  <a routerLink="/measurement-manager" routerLinkActive="active">Measurements</a>
-  <a routerLink="/nuwroversion-manager" routerLinkActive="active">Nuwroversions</a>
-  <a routerLink="/login" *ngIf="!isAuthenticated; else signOutLink" routerLinkActive="active">Sign In</a>
-</nav>
+<mat-toolbar>
+  <div id="main-nav">
+    <button mat-button routerLink="/experiment-manager" routerLinkActive="active">Experiments</button>
+    <button mat-button routerLink="/measurement-manager" routerLinkActive="active">Measurements</button>
+    <button mat-button routerLink="/nuwroversion-manager" routerLinkActive="active">Nuwroversions</button>
+  </div>
+  <div id="sign-in-nav">
+    <button mat-button routerLink="/login" *ngIf="!isAuthenticated; else signOutLink" routerLinkActive="active">Sign
+      In</button>
+  </div>
+</mat-toolbar>
 <router-outlet></router-outlet>
 
 <ng-template #signOutLink>
-  <a routerLink="/logout" routerLinkActive="active">Sign Out</a>
+  <button mat-button routerLink="/logout" routerLinkActive="active">Sign Out</button>
 </ng-template>
