@@ -20,13 +20,11 @@ export class SharedModelService {
   private apiEndpoints: ApiEndpoints;
 
   constructor(private http: HttpClient, private cookieService: CookieService) {
-    this.httpHeaders = new HttpHeaders()
-      .set('Content-Type', 'application/json')
-      .set('Authorization', `token ${cookieService.get('authToken')}`);
     this.apiEndpoints = new ApiEndpoints();
   }
 
   post(model: string = 'experiment' || 'measurement' || 'nuwroversion', modelInstance: SharedModel): Observable<SharedModel> {
+    this.refreshHttpHeaders();
     const formData = new FormData();
     formData.append('name', modelInstance.name);
     const url: string = this.generatePostGetAllURL(model);
@@ -35,13 +33,20 @@ export class SharedModelService {
   }
 
   getAll(model: string = 'experiment' || 'measurement' || 'nuwroversion', ): Observable<Array<SharedModel>> {
+    this.refreshHttpHeaders();
     const url = this.generatePostGetAllURL(model);
     return this.http.get<Array<SharedModel>>(url, { headers: this.httpHeaders });
   }
 
   get(model: string = 'experiment' || 'measurement' || 'nuwroversion', id: number): Observable<SharedModel> {
+    this.refreshHttpHeaders();
     const url = this.generateGetURL(model, id);
     return this.http.get<SharedModel>(url, { headers: this.httpHeaders });
+  }
+
+  private refreshHttpHeaders(): void {
+    this.httpHeaders = new HttpHeaders()
+      .set('Authorization', `token ${this.cookieService.get('authToken')}`);
   }
 
   private generatePostGetAllURL(model: string = 'experiment' || 'measurement' || 'nuwroversion'): string {
@@ -49,7 +54,7 @@ export class SharedModelService {
       return this.apiEndpoints.experimentGetPost();
     } else if (model === 'measurement') {
       return this.apiEndpoints.measurementGetPost();
-    } else {
+    } else if (model === 'nuwroversion') {
       return this.apiEndpoints.nuwroversionGetPost();
     }
   }
@@ -59,7 +64,7 @@ export class SharedModelService {
       return this.apiEndpoints.experimentGet(id);
     } else if (model === 'measurement') {
       return this.apiEndpoints.measurementGet(id);
-    } else {
+    } else if (model === 'nuwroversion') {
       return this.apiEndpoints.nuwroversionGet(id);
     }
   }
