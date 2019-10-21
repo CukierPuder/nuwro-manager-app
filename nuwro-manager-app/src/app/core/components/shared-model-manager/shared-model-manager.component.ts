@@ -9,7 +9,8 @@ import { SharedModel } from 'src/app/shared/models/shared-model.model';
   styleUrls: ['./shared-model-manager.component.css']
 })
 export class SharedModelManagerComponent implements OnInit {
-  objectsList: Array<SharedModel>;
+  columnsToDisplay: string[] = ['id', 'name'];
+  recordsList: Array<SharedModel>;
   private model: string;
 
   constructor(private router: Router, private modelService: SharedModelService) {
@@ -20,11 +21,15 @@ export class SharedModelManagerComponent implements OnInit {
     this.fetchAllRecords();
   }
 
+  selectRow(row): void {
+    console.log(row);
+  }
+
   fetchAllRecords(): void {
     this.modelService.getAll(this.model).subscribe(
       (res) => {
-        this.objectsList = res;
-        console.log(this.objectsList);
+        this.recordsList = res;
+        console.log(this.recordsList);
       },
       (err) => {
         // TODO: display a modal error message
