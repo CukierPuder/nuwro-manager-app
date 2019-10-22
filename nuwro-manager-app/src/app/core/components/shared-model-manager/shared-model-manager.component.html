@@ -1,6 +1,6 @@
 <mat-grid-list cols="1" rowHeight="fit">
 
-    <button mat-button>Create new record</button>
+    <button mat-button (click)="openCreateNewRecord()">Create new record</button>
 
     <table mat-table [dataSource]="recordsList">
         <ng-container matColumnDef="id">
@@ -14,7 +14,7 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-        <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay" (click)="selectRow(myRowData)"></tr>
+        <tr mat-row class="dataRow" *matRowDef="let myRowData; columns: columnsToDisplay" (click)="openCreateNewRecord(myRowData)"></tr>
       </table>
 
 </mat-grid-list>

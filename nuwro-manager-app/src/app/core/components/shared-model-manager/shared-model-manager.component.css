@@ -5,3 +5,12 @@ mat-grid-list {
 table {
   width: 100%;
 }
+
+.dataRow {
+  background-color: #636363;
+}
+
+.dataRow:hover {
+  background-color: #424242;
+  cursor: pointer;
+}

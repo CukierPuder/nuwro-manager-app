@@ -23,15 +23,6 @@ export class SharedModelService {
     this.apiEndpoints = new ApiEndpoints();
   }
 
-  post(model: string = 'experiment' || 'measurement' || 'nuwroversion', modelInstance: SharedModel): Observable<SharedModel> {
-    this.refreshHttpHeaders();
-    const formData = new FormData();
-    formData.append('name', modelInstance.name);
-    const url: string = this.generatePostGetAllURL(model);
-
-    return this.http.post<SharedModel>(url, formData, { headers: this.httpHeaders });
-  }
-
   getAll(model: string = 'experiment' || 'measurement' || 'nuwroversion', ): Observable<Array<SharedModel>> {
     this.refreshHttpHeaders();
     const url = this.generatePostGetAllURL(model);
@@ -42,6 +33,24 @@ export class SharedModelService {
     this.refreshHttpHeaders();
     const url = this.generateGetURL(model, id);
     return this.http.get<SharedModel>(url, { headers: this.httpHeaders });
+  }
+
+  post(model: string = 'experiment' || 'measurement' || 'nuwroversion', name: string): Observable<SharedModel> {
+    this.refreshHttpHeaders();
+    const formData = new FormData();
+    formData.append('name', name);
+    const url: string = this.generatePostGetAllURL(model);
+
+    return this.http.post<SharedModel>(url, formData, { headers: this.httpHeaders });
+  }
+
+  patch(model: string = 'experiment' || 'measurement' || 'nuwroversion', id: number, name: string): Observable<SharedModel> {
+    this.refreshHttpHeaders();
+    const formData = new FormData();
+    formData.append('name', name);
+    const url: string = this.generateGetURL(model, id);
+
+    return this.http.patch<SharedModel>(url, formData, { headers: this.httpHeaders });
   }
 
   private refreshHttpHeaders(): void {

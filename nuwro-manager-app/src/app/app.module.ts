@@ -12,6 +12,7 @@ import { MaterialModule } from './material.module';
 import { appRoutes } from './routing.module';
 import { LoginComponent } from './core/components/login/login.component';
 import { SharedModelManagerComponent } from './core/components/shared-model-manager/shared-model-manager.component';
+import { SharedModelDialogComponent } from './core/dialogs/shared-model-dialog/shared-model-dialog.component';
 
 
 
@@ -19,7 +20,8 @@ import { SharedModelManagerComponent } from './core/components/shared-model-mana
   declarations: [
     AppComponent,
     LoginComponent,
-    SharedModelManagerComponent
+    SharedModelManagerComponent,
+    SharedModelDialogComponent
   ],
   imports: [
     FormsModule,
@@ -31,6 +33,7 @@ import { SharedModelManagerComponent } from './core/components/shared-model-mana
     RouterModule.forRoot(appRoutes)
   ],
   providers: [CookieService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [SharedModelDialogComponent]
 })
 export class AppModule { }
