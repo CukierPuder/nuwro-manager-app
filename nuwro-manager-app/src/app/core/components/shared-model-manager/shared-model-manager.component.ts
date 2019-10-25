@@ -17,7 +17,11 @@ export class SharedModelManagerComponent implements OnInit {
   dialogRef: MatDialogRef<SharedModelDialogComponent>;
   private model: string;
 
-  constructor(private router: Router, private modelService: SharedModelService, private dialog: MatDialog) {
+  constructor(
+    private router: Router,
+    private modelService: SharedModelService,
+    private dialog: MatDialog
+  ) {
     this.model = this.getMode(router);
   }
 

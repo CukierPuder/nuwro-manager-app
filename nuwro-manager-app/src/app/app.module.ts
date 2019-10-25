@@ -13,6 +13,8 @@ import { appRoutes } from './routing.module';
 import { LoginComponent } from './core/components/login/login.component';
 import { SharedModelManagerComponent } from './core/components/shared-model-manager/shared-model-manager.component';
 import { SharedModelDialogComponent } from './core/dialogs/shared-model-dialog/shared-model-dialog.component';
+import { DatafileManagerComponent } from './core/components/datafile-manager/datafile-manager.component';
+import { DatafileDialogComponent } from './core/dialogs/datafile-dialog/datafile-dialog.component';
 
 
 
@@ -21,7 +23,9 @@ import { SharedModelDialogComponent } from './core/dialogs/shared-model-dialog/s
     AppComponent,
     LoginComponent,
     SharedModelManagerComponent,
-    SharedModelDialogComponent
+    DatafileManagerComponent,
+    SharedModelDialogComponent,
+    DatafileDialogComponent
   ],
   imports: [
     FormsModule,
@@ -34,6 +38,9 @@ import { SharedModelDialogComponent } from './core/dialogs/shared-model-dialog/s
   ],
   providers: [CookieService],
   bootstrap: [AppComponent],
-  entryComponents: [SharedModelDialogComponent]
+  entryComponents: [
+    SharedModelDialogComponent,
+    DatafileDialogComponent
+  ]
 })
 export class AppModule { }
