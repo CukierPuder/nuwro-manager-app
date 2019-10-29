@@ -4,8 +4,8 @@ import { Datafile } from 'src/app/shared/models/datafile.model';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { filter } from 'rxjs/operators';
 import { DatafileDialogComponent } from '../../dialogs/datafile-dialog/datafile-dialog.component';
-import { Router } from '@angular/router';
 import { ApiEndpoints } from 'src/app/shared/api-endpoints';
+
 
 @Component({
   selector: 'app-datafile-manager',

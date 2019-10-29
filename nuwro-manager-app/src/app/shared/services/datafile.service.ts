@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { ApiEndpoints } from '../api-endpoints';
+import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
+
+import { ApiEndpoints } from '../api-endpoints';
 import { Datafile } from '../models/datafile.model';
+import { Measurement } from '../models/measurement.model';
+import { Experiment } from '../models/experiment.model';
 
 @Injectable({
   providedIn: 'root'
@@ -32,11 +35,21 @@ export class DatafileService {
     formData.append('filename', datafile.filename);
     formData.append('input_file', datafile.input_file);
 
+    /*
     formData.forEach(pair => {
       console.log(pair);
     });
+    */
 
     return this.client.post<Datafile>(this.apiEndpoints.datafileGetAllPost(), formData, { headers: this.httpHeaders });
+  }
+
+  public filter(experiment: Experiment, measurement: Measurement): Observable<Array<Datafile>> {
+    this.refreshHttpHeaders();
+    const params: HttpParams = new HttpParams();
+    params.append('experiment', experiment.id.toString());
+    params.append('measurement', measurement.id.toString());
+    return this.client.get<Array<Datafile>>(this.apiEndpoints.datafileGetAllPost(), { headers: this.httpHeaders, params });
   }
 
   private refreshHttpHeaders(): void {

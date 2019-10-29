@@ -13,7 +13,7 @@ export class Resultfile {
     public y_axis: string,
     public filename: string,
     public result_file: File,
-    public related_datafiles: Array<Datafile>
+    public related_datafiles: Array<Datafile>,
     public link?: string,
     public creation_date?: Date,
     public id?: number
@@ -24,7 +24,7 @@ export class Resultfile {
   }
 
   public getArrayOfDatafileIds(): Array<number> {
-    const ids: Array<number>;
+    const ids: Array<number> = [];
     for (let datafile of this.related_datafiles) {
       ids.push(datafile.id);
     }

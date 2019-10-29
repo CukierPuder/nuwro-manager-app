@@ -1,0 +1,53 @@
+<form [formGroup]="form" (ngSubmit)="submit(form)">
+  <h1 mat-dialog-title>Create new record</h1>
+  <mat-dialog-content>
+    <mat-form-field>
+      <mat-select formControlName="experiment" (selectionChange)="onExperimentChange($event)" required>
+        <mat-option *ngFor="let experiment of experiments" [value]="experiment">
+          {{experiment.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select formControlName="measurement" (selectionChange)="onMeasurementChange($event)" required>
+        <mat-option *ngFor="let measurement of measurements" [value]="measurement">
+          {{measurement.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select formControlName="nuwroversion" required>
+        <mat-option *ngFor="let nuwroversion of nuwroversions" [value]="nuwroversion">
+          {{nuwroversion.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput formControlName="description" placeholder="Description (optional)">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput formControlName="xAxis" placeholder="X axis name">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput formControlName="yAxis" placeholder="Y axis name ">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select formControlName="relatedDatafiles" multiple>
+        <mat-option *ngFor="let related_datafile of relatedDatafiles" [value]="related_datafile">{{related_datafile.filename}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <input type="file" formControlName="file" (change)="handleFileInput($event.target.files)" placeholder="Pick a file">
+
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button type="submit">Add</button>
+    <button mat-button type="button" mat-dialog-close>Cancel</button>
+  </mat-dialog-actions>
+</form>

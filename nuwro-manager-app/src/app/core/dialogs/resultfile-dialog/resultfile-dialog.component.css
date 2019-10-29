@@ -1,0 +1,8 @@
+form {
+  max-width: 300px;
+  overflow: hidden;
+}
+
+mat-form-field {
+  width: 100%;
+}

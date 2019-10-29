@@ -15,6 +15,8 @@ import { SharedModelManagerComponent } from './core/components/shared-model-mana
 import { SharedModelDialogComponent } from './core/dialogs/shared-model-dialog/shared-model-dialog.component';
 import { DatafileManagerComponent } from './core/components/datafile-manager/datafile-manager.component';
 import { DatafileDialogComponent } from './core/dialogs/datafile-dialog/datafile-dialog.component';
+import { ResultfileManagerComponent } from './core/components/resultfile-manager/resultfile-manager.component';
+import { ResultfileDialogComponent } from './core/dialogs/resultfile-dialog/resultfile-dialog.component';
 
 
 
@@ -23,9 +25,11 @@ import { DatafileDialogComponent } from './core/dialogs/datafile-dialog/datafile
     AppComponent,
     LoginComponent,
     SharedModelManagerComponent,
-    DatafileManagerComponent,
     SharedModelDialogComponent,
-    DatafileDialogComponent
+    DatafileManagerComponent,
+    DatafileDialogComponent,
+    ResultfileManagerComponent,
+    ResultfileDialogComponent
   ],
   imports: [
     FormsModule,
@@ -40,7 +44,8 @@ import { DatafileDialogComponent } from './core/dialogs/datafile-dialog/datafile
   bootstrap: [AppComponent],
   entryComponents: [
     SharedModelDialogComponent,
-    DatafileDialogComponent
+    DatafileDialogComponent,
+    ResultfileDialogComponent
   ]
 })
 export class AppModule { }

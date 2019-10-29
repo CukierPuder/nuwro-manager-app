@@ -3,6 +3,7 @@ import { LoginComponent } from './core/components/login/login.component';
 import { SharedModelManagerComponent } from './core/components/shared-model-manager/shared-model-manager.component';
 import { AuthenticationGuardService } from './shared/services/authentication-guard.service';
 import { DatafileManagerComponent } from './core/components/datafile-manager/datafile-manager.component';
+import { ResultfileManagerComponent } from './core/components/resultfile-manager/resultfile-manager.component';
 
 
 export const appRoutes: Routes = [
@@ -19,6 +20,11 @@ export const appRoutes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'resultfile-manager',
+    component: ResultfileManagerComponent,
+    canActivate: [AuthenticationGuardService]
   },
   {
     path: 'datafile-manager',
