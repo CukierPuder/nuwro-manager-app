@@ -11,25 +11,27 @@ import { CookieService } from 'ngx-cookie-service';
 import { MaterialModule } from './material.module';
 import { appRoutes } from './routing.module';
 import { LoginComponent } from './core/components/login/login.component';
-import { SharedModelManagerComponent } from './core/components/shared-model-manager/shared-model-manager.component';
-import { SharedModelDialogComponent } from './core/dialogs/shared-model-dialog/shared-model-dialog.component';
-import { DatafileManagerComponent } from './core/components/datafile-manager/datafile-manager.component';
-import { DatafileDialogComponent } from './core/dialogs/datafile-dialog/datafile-dialog.component';
+import { ChartsManagerComponent } from './core/components/charts-manager/charts-manager.component';
 import { ResultfileManagerComponent } from './core/components/resultfile-manager/resultfile-manager.component';
 import { ResultfileDialogComponent } from './core/dialogs/resultfile-dialog/resultfile-dialog.component';
-
+import { DatafileManagerComponent } from './core/components/datafile-manager/datafile-manager.component';
+import { DatafileDialogComponent } from './core/dialogs/datafile-dialog/datafile-dialog.component';
+import { SharedModelManagerComponent } from './core/components/shared-model-manager/shared-model-manager.component';
+import { SharedModelDialogComponent } from './core/dialogs/shared-model-dialog/shared-model-dialog.component';
+import { CommonModule } from '@angular/common';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    SharedModelManagerComponent,
-    SharedModelDialogComponent,
+    ChartsManagerComponent,
+    ResultfileManagerComponent,
+    ResultfileDialogComponent,
     DatafileManagerComponent,
     DatafileDialogComponent,
-    ResultfileManagerComponent,
-    ResultfileDialogComponent
+    SharedModelManagerComponent,
+    SharedModelDialogComponent
   ],
   imports: [
     FormsModule,
@@ -43,9 +45,9 @@ import { ResultfileDialogComponent } from './core/dialogs/resultfile-dialog/resu
   providers: [CookieService],
   bootstrap: [AppComponent],
   entryComponents: [
-    SharedModelDialogComponent,
+    ResultfileDialogComponent,
     DatafileDialogComponent,
-    ResultfileDialogComponent
+    SharedModelDialogComponent
   ]
 })
 export class AppModule { }

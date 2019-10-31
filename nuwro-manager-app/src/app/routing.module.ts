@@ -4,6 +4,7 @@ import { SharedModelManagerComponent } from './core/components/shared-model-mana
 import { AuthenticationGuardService } from './shared/services/authentication-guard.service';
 import { DatafileManagerComponent } from './core/components/datafile-manager/datafile-manager.component';
 import { ResultfileManagerComponent } from './core/components/resultfile-manager/resultfile-manager.component';
+import { ChartsManagerComponent } from './core/components/charts-manager/charts-manager.component';
 
 
 export const appRoutes: Routes = [
@@ -20,6 +21,11 @@ export const appRoutes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'charts-manager',
+    component: ChartsManagerComponent,
+    canActivate: [AuthenticationGuardService]
   },
   {
     path: 'resultfile-manager',

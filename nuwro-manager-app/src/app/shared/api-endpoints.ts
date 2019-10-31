@@ -14,6 +14,10 @@ export class ApiEndpoints {
     return this.host + '/';
   }
 
+  getFileURL(fileURL: string): string {
+    return this.host + '/' + fileURL;
+  }
+
   // user api endpoints
   userSignIn(): string { return `${this.host}/${this.apiPrefix}/${this.userPrefix}/token/`; }
   userSignUp(): string { return `${this.host}/${this.apiPrefix}/${this.userPrefix}/create/`; }

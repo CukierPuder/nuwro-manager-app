@@ -1,0 +1,30 @@
+<mat-form-field>
+    <mat-label>Experiment</mat-label>
+    <mat-select (selectionChange)="onExperimentChange($event)">
+        <mat-option *ngFor="let experiment of experiments" [value]="experiment">
+            {{experiment.name}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+
+<mat-form-field>
+    <mat-label>Measurement</mat-label>
+    <mat-select (selectionChange)="onMeasurementChange($event)">
+        <mat-option *ngFor="let measurement of measurements" [value]="measurement">
+            {{measurement.name}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+
+<mat-form-field>
+    <mat-label>Files</mat-label>
+    <mat-select (selectionChange)="onResultfilesChange($event)" multiple>
+        <mat-option *ngFor="let resultfile of filteredResultfiles" [value]="resultfile">
+            {{resultfile.filename}} [{{resultfile.nuwroversion.name}}]
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+
+<button mat-button type="button" (click)="redrawChart()">Redraw chart</button>
+
+<div id="Graph" #Graph></div>

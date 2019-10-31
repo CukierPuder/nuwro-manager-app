@@ -98,9 +98,7 @@ export class ResultfileDialogComponent implements OnInit {
   }
 
   private fetchRelatedDatafiles(): void {
-    console.log('--- Im in fetchRelatedDatafiles function ---');
     if (this.pickedExperiment != null && this.pickedMeasurement != null) {
-      console.log('--- Im in fetchRelatedDatafiles functions if-statement ---');
       this.datafileService.filter(this.pickedExperiment, this.pickedMeasurement).subscribe(
         (res) => { this.relatedDatafiles = res; }
       );

@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
       (res) => {
         const tokenInstance = new AuthToken(res.token);
         this.authService.signIn(tokenInstance.token);
-        this.router.navigate(['/experiment-manager']);
+        this.router.navigate(['/charts-manager']);
       },
       (err) => {
         if (err.status === 400) {
