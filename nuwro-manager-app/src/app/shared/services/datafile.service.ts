@@ -46,9 +46,9 @@ export class DatafileService {
 
   public filter(experiment: Experiment, measurement: Measurement): Observable<Array<Datafile>> {
     this.refreshHttpHeaders();
-    const params: HttpParams = new HttpParams();
-    params.append('experiment', experiment.id.toString());
-    params.append('measurement', measurement.id.toString());
+    const params = new HttpParams()
+      .set('experiment', experiment.id.toString())
+      .set('measurement', measurement.id.toString());
     return this.client.get<Array<Datafile>>(this.apiEndpoints.datafileGetAllPost(), { headers: this.httpHeaders, params });
   }
 

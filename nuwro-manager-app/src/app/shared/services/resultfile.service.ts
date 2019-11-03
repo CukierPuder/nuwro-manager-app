@@ -46,10 +46,11 @@ export class ResultfileService {
 
   public filter(experiment: Experiment, measurement: Measurement): Observable<Array<Resultfile>> {
     this.refreshHttpHeaders();
-    const params: HttpParams = new HttpParams();
-    params.append('experiment', experiment.id.toString());
-    params.append('measurement', measurement.id.toString());
-    return this.client.get<Array<Resultfile>>(this.apiEndpoints.resultfileGetAllPost(), { headers: this.httpHeaders, params });
+    const params = new HttpParams()
+      .set('experiment', experiment.id.toString())
+      .set('measurement', measurement.id.toString());
+    const options = { params: params, headers: this.httpHeaders }
+    return this.client.get<Array<Resultfile>>(this.apiEndpoints.resultfileGetAllPost(), options);
   }
 
   public downloadFile(url: string): Observable<File> {
