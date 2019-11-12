@@ -6,6 +6,13 @@ table {
   width: 100%;
 }
 
+.bottom-right-button {
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  margin: 20px;
+}
+
 .dataRow {
   background-color: #636363;
 }

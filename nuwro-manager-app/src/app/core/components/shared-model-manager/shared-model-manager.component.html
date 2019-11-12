@@ -1,20 +1,23 @@
 <mat-grid-list cols="1" rowHeight="fit">
 
-    <button mat-button (click)="openCreateNewRecord()">Create new record</button>
+  <table mat-table [dataSource]="recordsList">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> Id </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
 
-    <table mat-table [dataSource]="recordsList">
-        <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef> Id </th>
-          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-        </ng-container>
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
 
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef> Name </th>
-          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-        <tr mat-row class="dataRow" *matRowDef="let myRowData; columns: columnsToDisplay" (click)="openCreateNewRecord(myRowData)"></tr>
-      </table>
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row class="dataRow" *matRowDef="let myRowData; columns: columnsToDisplay"
+      (click)="openCreateNewRecord(myRowData)"></tr>
+  </table>
 
 </mat-grid-list>
+
+<button mat-fab class="bottom-right-button" aria-label="Add button" (click)="openCreateNewRecord()">
+  <mat-icon>add</mat-icon>
+</button>

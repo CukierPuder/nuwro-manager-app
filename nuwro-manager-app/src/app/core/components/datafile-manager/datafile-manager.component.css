@@ -2,6 +2,13 @@ mat-grid-list {
   margin: 30px 30px 30px 30px;
 }
 
+.bottom-right-button {
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  margin: 20px;
+}
+
 table {
   width: 100%;
 }

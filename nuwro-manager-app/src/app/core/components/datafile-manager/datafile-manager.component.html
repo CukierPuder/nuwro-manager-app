@@ -1,5 +1,4 @@
 <mat-grid-list cols="1" rowHeight="fit">
-  <button mat-button (click)="openCreateNewRecord()">Create new record</button>
   <table mat-table [dataSource]="itemsList">
     <ng-container matColumnDef="filename">
       <th mat-header-cell *matHeaderCellDef> Filename </th>
@@ -27,6 +26,11 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-    <tr mat-row class="dataRow" *matRowDef="let clickedItem; columns: columnsToDisplay" (click)="redirectToFile(clickedItem)"></tr>
+    <tr mat-row class="dataRow" *matRowDef="let clickedItem; columns: columnsToDisplay"
+      (click)="redirectToFile(clickedItem)"></tr>
   </table>
 </mat-grid-list>
+
+<button mat-fab class="bottom-right-button" aria-label="Add button" (click)="openCreateNewRecord()">
+  <mat-icon>add</mat-icon>
+</button>
