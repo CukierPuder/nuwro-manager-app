@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder} from '@angular/forms';
 import { AuthenticationService } from 'src/app/shared/services/authentication.service';
 import { AuthToken } from 'src/app/shared/models/auth-token.model';
 import { UserSignIn, UserSignUp } from 'src/app/shared/models/user.model';
+import { MatTabGroup } from '@angular/material';
 
 
 @Component({
@@ -12,6 +13,7 @@ import { UserSignIn, UserSignUp } from 'src/app/shared/models/user.model';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  @ViewChild('tabGroup', { static: true }) tabGroup: MatTabGroup;
   errorMessage = '';
   messageHidden = true;
   signInForm = this.formBuilder.group({
@@ -67,9 +69,16 @@ export class LoginComponent implements OnInit {
     this.authService.registerUser(userInstance).subscribe(
       (res) => {
         // TODO: redirect to login tab and provide the given email address
+        this.signInForm.controls['email'].setValue(this.signUpForm.get('email').value);
+        this.signInForm.controls['password'].setValue(this.signUpForm.get('password').value);
+        this.tabGroup.selectedIndex = 0;
       },
       (err) => {
-        this.displayMessage(err.status + '\n' + err.statusText);
+        if (err.status === 400) {
+          this.displayMessage('Account with this email address already exists.');
+        } else {
+          this.displayMessage(err.status + '\n' + err.statusText);
+        }
       }
     );
   }

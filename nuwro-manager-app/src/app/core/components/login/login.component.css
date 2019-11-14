@@ -46,3 +46,7 @@ button {
 .card-content {
   margin: 10px 10px 10px 10px;
 }
+
+.error-message {
+  color: #ff2e2e;
+}

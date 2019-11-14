@@ -1,6 +1,7 @@
 <mat-card class="parent">
   <mat-card-content class="card-content">
-    <mat-tab-group mat-align-tabs="center">
+    <p class='error-message' *ngIf="!messageHidden"><b>{{ errorMessage }}</b></p>
+    <mat-tab-group mat-align-tabs="center" #tabGroup>
 
       <mat-tab label="Sign In">
         <form [formGroup]="signInForm" (ngSubmit)="onSignInButtonClicked()">
