@@ -2,7 +2,7 @@
   <h1 mat-dialog-title>Create new record</h1>
   <mat-dialog-content>
     <mat-form-field>
-      <mat-select formControlName="experiment" required>
+      <mat-select formControlName="experiment" (selectionChange)="onRequiredFieldChange()" required>
         <mat-option *ngFor="let experiment of experiments" [value]="experiment">
           {{experiment.name}}
         </mat-option>
@@ -10,7 +10,7 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-select formControlName="measurement" required>
+      <mat-select formControlName="measurement" (selectionChange)="onRequiredFieldChange()" required>
         <mat-option *ngFor="let measurement of measurements" [value]="measurement">
           {{measurement.name}}
         </mat-option>
@@ -33,7 +33,7 @@
 
   </mat-dialog-content>
   <mat-dialog-actions>
-    <button mat-button type="submit">Add</button>
+    <button mat-button type="submit" [disabled]="submitButtonDisabled">Add</button>
     <button mat-button type="button" mat-dialog-close>Cancel</button>
   </mat-dialog-actions>
 </form>

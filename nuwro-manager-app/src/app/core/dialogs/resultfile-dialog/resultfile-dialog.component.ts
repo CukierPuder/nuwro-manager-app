@@ -20,9 +20,10 @@ export class ResultfileDialogComponent implements OnInit {
   measurements: Array<Measurement>;
   nuwroversions: Array<Nuwroversion>;
   relatedDatafiles: Array<Datafile>;
-  fileToUpload: File = null;
   form: FormGroup;
+  submitButtonDisabled: boolean = true;
 
+  fileToUpload: File = null;
   pickedExperiment: Experiment;
   pickedMeasurement: Measurement;
 
@@ -52,6 +53,7 @@ export class ResultfileDialogComponent implements OnInit {
 
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
+    this.onRequiredFieldChange();
   }
 
   submit(form): void {
@@ -72,11 +74,36 @@ export class ResultfileDialogComponent implements OnInit {
   onExperimentChange(event): void {
     this.pickedExperiment = event.value;
     this.fetchRelatedDatafiles();
+    this.onRequiredFieldChange();
   }
 
   onMeasurementChange(event): void {
     this.pickedMeasurement = event.value;
     this.fetchRelatedDatafiles();
+    this.onRequiredFieldChange();
+  }
+
+  onRequiredFieldChange(): void {
+    /* TODO: check if fields listed below are not empty:
+    * - experiment select field
+    * - measurement select field
+    * - nuwroversion select field
+    * - x axis input
+    * - y axis input
+    * - related datafiles list
+    * - result file property
+    */
+    if (this.form.value.experiment &&
+        this.form.value.measurement &&
+        this.form.value.nuwroversion &&
+        this.form.value.xAxis &&
+        this.form.value.yAxis &&
+        this.fileToUpload &&
+        this.form.value.relatedDatafiles.length > 0) {
+      this.submitButtonDisabled = false;
+    } else {
+      this.submitButtonDisabled = true;
+    }
   }
 
   private fetchAllExperiments(): void {

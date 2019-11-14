@@ -18,6 +18,7 @@ export class DatafileDialogComponent implements OnInit {
   measurements: Array<Measurement>;
   fileToUpload: File = null;
   form: FormGroup;
+  submitButtonDisabled: boolean = true;
 
   constructor(
     private sharedModelService: SharedModelService,
@@ -41,6 +42,7 @@ export class DatafileDialogComponent implements OnInit {
 
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
+    this.onRequiredFieldChange();
   }
 
   submit(form): void {
@@ -54,6 +56,14 @@ export class DatafileDialogComponent implements OnInit {
       this.fileToUpload
     );
     this.dialogRef.close(dataFile);
+  }
+
+  onRequiredFieldChange(): void {
+    if (this.form.value.experiment && this.form.value.measurement && this.fileToUpload) {
+      this.submitButtonDisabled = false;
+    } else {
+      this.submitButtonDisabled = true;
+    }
   }
 
   private fetchAllExperiments(): void {

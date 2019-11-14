@@ -9,6 +9,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 })
 export class SharedModelDialogComponent implements OnInit {
   form: FormGroup;
+  submitButtonDisabled: boolean = true;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -24,5 +25,13 @@ export class SharedModelDialogComponent implements OnInit {
 
   submit(form): void {
     this.dialogRef.close(`${form.value.name}`);
+  }
+
+  onRequiredFieldChange(): void {
+    if (this.form.value.name) {
+      this.submitButtonDisabled = false;
+    } else {
+      this.submitButtonDisabled = true;
+    }
   }
 }
