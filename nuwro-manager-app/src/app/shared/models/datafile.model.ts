@@ -6,8 +6,6 @@ export class Datafile {
     public experiment: Experiment,
     public measurement: Measurement,
     public variable: string,
-    public x_axis: string,
-    public y_axis: string,
     public filename: string,
     public input_file: File,
     public link?: string,

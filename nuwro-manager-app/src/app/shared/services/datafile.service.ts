@@ -30,8 +30,6 @@ export class DatafileService {
     formData.append('experiment', datafile.experiment.id.toString());
     formData.append('measurement', datafile.measurement.id.toString());
     formData.append('variable', datafile.variable);
-    formData.append('x_axis', datafile.x_axis);
-    formData.append('y_axis', datafile.y_axis);
     formData.append('filename', datafile.filename);
     formData.append('input_file', datafile.input_file);
 

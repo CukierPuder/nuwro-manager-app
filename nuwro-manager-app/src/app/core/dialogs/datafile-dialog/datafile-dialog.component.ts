@@ -34,8 +34,6 @@ export class DatafileDialogComponent implements OnInit {
       experiment: '',
       measurement: '',
       variable: '',
-      xAxis: '',
-      yAxis: '',
       file: ''
     });
   }
@@ -50,8 +48,6 @@ export class DatafileDialogComponent implements OnInit {
       form.value.experiment,
       form.value.measurement,
       form.value.variable,
-      form.value.xAxis,
-      form.value.yAxis,
       this.fileToUpload.name,
       this.fileToUpload
     );
