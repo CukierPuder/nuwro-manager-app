@@ -2,7 +2,7 @@
   <h1 mat-dialog-title>Create new record</h1>
   <mat-dialog-content>
     <mat-form-field>
-      <mat-select formControlName="experiment" (selectionChange)="onExperimentChange($event)" required>
+      <mat-select formControlName="experiment" (selectionChange)="onExperimentChange($event)" placeholder="Experiment" required>
         <mat-option *ngFor="let experiment of experiments" [value]="experiment">
           {{experiment.name}}
         </mat-option>
@@ -10,7 +10,7 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-select formControlName="measurement" (selectionChange)="onMeasurementChange($event)" required>
+      <mat-select formControlName="measurement" (selectionChange)="onMeasurementChange($event)" placeholder="Measurement" required>
         <mat-option *ngFor="let measurement of measurements" [value]="measurement">
           {{measurement.name}}
         </mat-option>
@@ -18,14 +18,14 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-select formControlName="nuwroversion" (selectionChange)="onRequiredFieldChange()" required>
+      <mat-select formControlName="nuwroversion" (selectionChange)="onRequiredFieldChange()" placeholder="Nuwro version" required>
         <mat-option *ngFor="let nuwroversion of nuwroversions" [value]="nuwroversion">
           {{nuwroversion.name}}
         </mat-option>
       </mat-select>
     </mat-form-field>
 
-    <mat-checkbox formControlName="is_3d" #is3dCheckbox>3D</mat-checkbox>
+    <mat-checkbox #is3dCheckbox>3D</mat-checkbox>
 
     <mat-form-field>
       <input matInput formControlName="description" placeholder="Description (optional)">
