@@ -15,8 +15,6 @@ declare var Plotly: any;
   styleUrls: ['./charts-manager.component.css']
 })
 export class ChartsManagerComponent implements OnInit {
-  //@ViewChild("Graph", { static: true })
-  //private Graph: ElementRef;
   private apiEndpoints: ApiEndpoints;
 
   experiments: Array<Experiment>;
@@ -38,6 +36,7 @@ export class ChartsManagerComponent implements OnInit {
     this.plotGraph();
   }
 
+  // >>> EVENT HANDLERS
   onExperimentChange(event): void {
     this.pickedExperiment = event.value;
     this.fetchFilteredResultfiles();
@@ -62,7 +61,9 @@ export class ChartsManagerComponent implements OnInit {
     }
     console.log(this.datasets);
   }
+  // <<< END OF EVENT HANDLERS
 
+  // >>> API REQUESTS HANDLERS
   private fetchAllExperiments(): void {
     this.sharedModelService.getAll('experiment').subscribe(
       (res) => { this.experiments = res; }
@@ -108,15 +109,7 @@ export class ChartsManagerComponent implements OnInit {
       }
     );
   }
-
-  private checkIfFileIsAlreadyDownloaded(filename: string, nuwroversion: string): boolean {
-    for (let dataset of this.datasets) {
-      if (dataset['filename'] == filename && dataset['nuwroversion'] == nuwroversion) {
-        return true;
-      }
-      return false;
-    }
-  }
+  // <<< END OF API REQUESTS HANDLERS
 
   private parseFileToDataset(filename: string, nuwroversion: string, fileContent: string): ResultfileDataset {
     let x: Array<number> = [];
@@ -150,8 +143,7 @@ export class ChartsManagerComponent implements OnInit {
     const data = this.datasets;
 
     //this.Graph = Plotly.newPlot(
-    Plotly.plot('Graph',
-      data,
+    Plotly.plot('Graph', data,
       {
         autoexpand: "true",
         autosize: "true",
@@ -183,31 +175,5 @@ export class ChartsManagerComponent implements OnInit {
         responsive: true,
         scrollZoom: true
       });
-
-    /*
-    [
-    {
-      name: 'plik1',
-      x: [0, 1, 2],
-      y: [6, 10, 2],
-      error_y: {
-        type: 'data',
-        array: [1.1, 1.3, 1.5],
-        visible: true
-      },
-      type: 'scatter'
-    },
-    {
-      x: [0, 1, 2],
-      y: [5, 11, 1.5],
-      error_y: {
-        type: 'data',
-        array: [1, 1.1, 1],
-        visible: true
-      },
-      type: 'scatter'
-    }
-  ];
-    */
   }
 }
