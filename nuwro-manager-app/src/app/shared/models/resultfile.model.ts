@@ -8,6 +8,7 @@ export class Resultfile {
     public experiment: Experiment,
     public measurement: Measurement,
     public nuwroversion: Nuwroversion,
+    public is_3d: boolean,
     public description: string,
     public x_axis: string,
     public y_axis: string,
@@ -30,5 +31,12 @@ export class Resultfile {
     }
 
     return ids;
+  }
+
+  public is3dToString(): string {
+    if (this.is_3d) {
+      return 'True';
+    }
+    return 'False';
   }
 }

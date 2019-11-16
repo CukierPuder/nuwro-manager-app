@@ -14,7 +14,7 @@ import { ResultfileDialogComponent } from '../../dialogs/resultfile-dialog/resul
 })
 export class ResultfileManagerComponent implements OnInit {
   itemsList: Array<Resultfile>;
-  columnsToDisplay: string[] = ['filename', 'experiment', 'measurement', 'nuwroversion', 'created'];
+  columnsToDisplay: string[] = ['filename', 'experiment', 'measurement', 'nuwroversion', 'is_3d', 'created'];
   dialogRef: MatDialogRef<ResultfileDialogComponent>;
   apiEndpoints: ApiEndpoints;
 

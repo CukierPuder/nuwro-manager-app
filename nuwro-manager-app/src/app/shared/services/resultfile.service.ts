@@ -33,6 +33,7 @@ export class ResultfileService {
     formData.append('experiment', resultfile.experiment.id.toString());
     formData.append('measurement', resultfile.measurement.id.toString());
     formData.append('nuwroversion', resultfile.nuwroversion.id.toString());
+    formData.append('is_3d', resultfile.is3dToString());
     formData.append('description', resultfile.description);
     formData.append('x_axis', resultfile.x_axis);
     formData.append('y_axis', resultfile.y_axis);

@@ -1,6 +1,6 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatCheckbox } from '@angular/material';
 
 import { Datafile } from 'src/app/shared/models/datafile.model';
 import { Experiment } from 'src/app/shared/models/experiment.model';
@@ -21,7 +21,9 @@ export class ResultfileDialogComponent implements OnInit {
   nuwroversions: Array<Nuwroversion>;
   relatedDatafiles: Array<Datafile>;
   form: FormGroup;
+  is3D: boolean = false;
   submitButtonDisabled: boolean = true;
+  @ViewChild('is3dCheckbox', { static: true }) is3dCheckbox: MatCheckbox;
 
   fileToUpload: File = null;
   pickedExperiment: Experiment;
@@ -61,6 +63,7 @@ export class ResultfileDialogComponent implements OnInit {
       form.value.experiment,
       form.value.measurement,
       form.value.nuwroversion,
+      this.is3dCheckbox.checked,
       form.value.description,
       form.value.xAxis,
       form.value.yAxis,
@@ -84,15 +87,6 @@ export class ResultfileDialogComponent implements OnInit {
   }
 
   onRequiredFieldChange(): void {
-    /* TODO: check if fields listed below are not empty:
-    * - experiment select field
-    * - measurement select field
-    * - nuwroversion select field
-    * - x axis input
-    * - y axis input
-    * - related datafiles list
-    * - result file property
-    */
     if (this.form.value.experiment &&
         this.form.value.measurement &&
         this.form.value.nuwroversion &&
