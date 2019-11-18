@@ -1,5 +1,5 @@
 export class ApiEndpoints {
-  private host = 'http://172.18.0.3:8000';
+  private host = 'http://localhost:8000';
   private apiPrefix = 'api';
   private userPrefix = 'user';
   private managerPrefix = 'manager';
