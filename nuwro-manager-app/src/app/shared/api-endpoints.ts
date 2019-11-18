@@ -1,5 +1,7 @@
+import { environment } from '../../environments/environment';
+
 export class ApiEndpoints {
-  private host = 'http://localhost:8000';
+  private host = environment.HOST_ADDR;
   private apiPrefix = 'api';
   private userPrefix = 'user';
   private managerPrefix = 'manager';

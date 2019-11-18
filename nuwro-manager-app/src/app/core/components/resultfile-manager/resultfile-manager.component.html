@@ -31,8 +31,7 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-    <tr mat-row class="dataRow" *matRowDef="let clickedItem; columns: columnsToDisplay"
-      (click)="redirectToFile(clickedItem)"></tr>
+    <tr mat-row class="dataRow" *matRowDef="let clickedItem; columns: columnsToDisplay"></tr>
   </table>
 </mat-grid-list>
 
