@@ -16,7 +16,7 @@ RUN npm install --prefix nuwro-manager-app
 COPY . /app
 
 # Build app
-RUN npm run build --prod --configuration="production" --prefix nuwro-manager-app -- --output-path=./dist/out
+RUN npm run build --prod --prefix nuwro-manager-app -- --output-path=./dist/out
 
 
 ### Stage 2: delivery ###
