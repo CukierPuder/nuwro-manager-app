@@ -6,6 +6,8 @@ import { SharedModelService } from 'src/app/shared/services/shared-model.service
 import { ResultfileService } from 'src/app/shared/services/resultfile.service';
 import { ApiEndpoints } from 'src/app/shared/api-endpoints';
 import { ResultfileDataset } from 'src/app/shared/models/resultfile-dataset.model';
+import { ChartConfigurations } from '../../../shared/charts/chart-configurations';
+import { ChartLayouts } from 'src/app/shared/charts/charts-layouts';
 
 declare var Plotly: any;
 
@@ -21,7 +23,7 @@ export class ChartsManagerComponent implements OnInit {
   measurements: Array<Measurement>;
   filteredResultfiles: Array<Resultfile>;
   selectedResultfiles: Array<Resultfile>;
-  datasets = [];
+  datasets: Array<ResultfileDataset> = [];
 
   pickedExperiment: Experiment;
   pickedMeasurement: Measurement;
@@ -59,7 +61,18 @@ export class ChartsManagerComponent implements OnInit {
     for (const resultfile of this.selectedResultfiles) {
       this.downloadFile(resultfile);
     }
-    console.log(this.datasets);
+  }
+
+  drawLineChart(): void {
+    this.plotGraph();
+  }
+
+  drawBarChart(): void {
+    this.plotGraph('bar');
+  }
+
+  drawPieChart(): void {
+    this.plotGraph('pie', 'pie-layout');
   }
   // <<< END OF EVENT HANDLERS
 
@@ -92,7 +105,6 @@ export class ChartsManagerComponent implements OnInit {
   }
 
   private downloadFile(resultfile: Resultfile): void {
-    console.log('Pobieram plik: ' + resultfile.filename + '( ' + resultfile.nuwroversion.name + ' )')
     /* downloads the textfiles (represented by -link- field in Resultfile objects) from server */
     this.resultfileService.downloadFile(this.apiEndpoints.getFileURL(resultfile.link)).subscribe(
       (res) => {
@@ -101,8 +113,8 @@ export class ChartsManagerComponent implements OnInit {
           resultfile.nuwroversion.name,
           res.toString()
         );
-        if (!this.datasets.includes(dataset.toChartDataset())) {
-          this.datasets.push(dataset.toChartDataset());
+        if (!this.datasets.includes(dataset)) {
+          this.datasets.push(dataset);
         }
         Plotly.purge('Graph');
         this.plotGraph();
@@ -139,41 +151,19 @@ export class ChartsManagerComponent implements OnInit {
     return new ResultfileDataset(filename, nuwroversion, x, y, yError, xError);
   }
 
-  private plotGraph(): void {
-    const data = this.datasets;
-
-    //this.Graph = Plotly.newPlot(
-    Plotly.plot('Graph', data,
-      {
-        autoexpand: "true",
-        autosize: "true",
-        width: window.innerWidth - 200,
-        margin: {
-          autoexpand: "true",
-          margin: 0
-        },
-        offset: 0,
-        type: "scattergl",
-        title: 'Title of the graph',
-        hovermode: "closest",
-        xaxis: {
-          linecolor: "black",
-          linewidth: 2,
-          mirror: true,
-          title: "Time (s)",
-          automargin: true
-        },
-        yaxis: {
-          linecolor: "black",
-          linewidth: 2,
-          mirror: true,
-          automargin: true,
-          title: 'Any other Unit'
-        }
-      },
-      {
-        responsive: true,
-        scrollZoom: true
-      });
+  private plotGraph(type: string = 'scatter', layout: string = 'line-bar-layout'): void {
+    const data = [];
+    if (type === 'pie') {
+      for (const dataset of this.datasets) {
+        data.push(dataset.toPieChartDataset(this.datasets.indexOf(dataset), type));
+      }
+      console.log(data);
+      Plotly.newPlot('Graph', data, ChartLayouts[layout]);
+    } else {
+      for (const dataset of this.datasets) {
+        data.push(dataset.toLineBarChartDataset(type));
+      }
+      Plotly.newPlot('Graph', data, ChartConfigurations['line-chart'], ChartLayouts[layout]);
+    }
   }
 }

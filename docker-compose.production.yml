@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  ng:
+    container_name: ng
+    environment:
+      - CONFIGURATION=production
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"

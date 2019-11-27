@@ -38,8 +38,7 @@ export class ResultfileManagerComponent implements OnInit {
           this.refreshItemsList();
         },
         (err) => {
-          // TODO: Display modal that file already exists...
-          console.log('File already exists...');
+          // TODO: Display modal-info that file already exists...
         }
       );
     });
@@ -49,8 +48,6 @@ export class ResultfileManagerComponent implements OnInit {
     this.resultfileService.getAll().subscribe(
       (res) => {
         this.itemsList = res;
-        console.log(res);
-        console.log(this.itemsList);
       },
       (err) => {
         // TODO: display a modal error message
