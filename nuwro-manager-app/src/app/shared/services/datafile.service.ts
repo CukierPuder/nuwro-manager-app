@@ -33,12 +33,6 @@ export class DatafileService {
     formData.append('filename', datafile.filename);
     formData.append('input_file', datafile.input_file);
 
-    /*
-    formData.forEach(pair => {
-      console.log(pair);
-    });
-    */
-
     return this.client.post<Datafile>(this.apiEndpoints.datafileGetAllPost(), formData, { headers: this.httpHeaders });
   }
 

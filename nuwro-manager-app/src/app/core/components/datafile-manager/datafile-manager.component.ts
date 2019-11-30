@@ -38,8 +38,7 @@ export class DatafileManagerComponent implements OnInit {
           this.refreshItemsList();
         },
         (err) => {
-          // TODO: Display modal that file already exists...
-          console.log('File already exists...');
+          // TODO: Display modal-info that file already exists...
         }
       );
     });

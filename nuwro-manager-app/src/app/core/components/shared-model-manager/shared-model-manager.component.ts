@@ -29,10 +29,6 @@ export class SharedModelManagerComponent implements OnInit {
     this.refreshDataArray();
   }
 
-  selectRow(row): void {
-    console.log(row);
-  }
-
   openCreateNewRecord(recordObj?: SharedModel): void {
     this.dialogRef = this.dialog.open(SharedModelDialogComponent, {
       hasBackdrop: true,
@@ -57,17 +53,6 @@ export class SharedModelManagerComponent implements OnInit {
     this.modelService.getAll(this.model).subscribe(
       (res) => {
         this.recordsList = res;
-      },
-      (err) => {
-        // TODO: display a modal error message
-      }
-    );
-  }
-
-  getObject(id: number): void {
-    this.modelService.get(this.model, id).subscribe(
-      (res) => {
-        console.log(res);
       },
       (err) => {
         // TODO: display a modal error message

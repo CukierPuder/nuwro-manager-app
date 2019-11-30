@@ -3,6 +3,8 @@ version: "3"
 services:
   ng:
     container_name: ng
+    environment:
+      - CONFIGURATION=dev
     build:
       context: .
       dockerfile: Dockerfile
