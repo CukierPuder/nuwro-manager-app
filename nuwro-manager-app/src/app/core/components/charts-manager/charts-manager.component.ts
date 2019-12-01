@@ -8,6 +8,8 @@ import { ApiEndpoints } from 'src/app/shared/api-endpoints';
 import { ResultfileDataset } from 'src/app/shared/models/resultfile-dataset.model';
 import { ChartConfigurations } from '../../../shared/charts/chart-configurations';
 import { ChartLayouts } from 'src/app/shared/charts/charts-layouts';
+import { DomSanitizer } from '@angular/platform-browser';
+import { MatIconRegistry } from '@angular/material/icon';
 
 declare var Plotly: any;
 
@@ -28,10 +30,25 @@ export class ChartsManagerComponent implements OnInit {
   pickedExperiment: Experiment;
   pickedMeasurement: Measurement;
 
-  constructor(
-    private sharedModelService: SharedModelService,
-    private resultfileService: ResultfileService
-  ) { this.apiEndpoints = new ApiEndpoints(); }
+  constructor(private sharedModelService: SharedModelService,
+              private resultfileService: ResultfileService,
+              iconRegistry: MatIconRegistry,
+              sanitizer: DomSanitizer
+  ) {
+    this.apiEndpoints = new ApiEndpoints();
+    iconRegistry.addSvgIcon(
+      'line-chart-icon',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/icons/line-chart-icon.svg')
+    );
+    iconRegistry.addSvgIcon(
+      'bar-chart-icon',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/icons/bar-chart-icon.svg')
+    );
+    iconRegistry.addSvgIcon(
+      'pie-chart-icon',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/icons/pie-chart-icon.svg')
+    );
+  }
 
   ngOnInit() {
     this.fetchFilters();
@@ -157,7 +174,6 @@ export class ChartsManagerComponent implements OnInit {
       for (const dataset of this.datasets) {
         data.push(dataset.toPieChartDataset(this.datasets.indexOf(dataset), type));
       }
-      console.log(data);
       Plotly.newPlot('Graph', data, ChartLayouts[layout]);
     } else {
       for (const dataset of this.datasets) {

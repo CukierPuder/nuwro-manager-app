@@ -1,12 +1,43 @@
-mat-form-field {
-  margin-left: 20px;
-}
-
-button {
-  margin-left: 20px;
+#main-container {
+  height: 100%;
+  width: 98%;
 }
 
 #Graph {
-  width: 100%;
-  height: 85%;
+  display: inline-block;
+  width: 80%;
+  height: 100%;
+}
+
+#chart-settings-container {
+  display: inline-block;
+  vertical-align: top;
+  width: 20%;
+}
+
+#resultfile-selector-container {
+  margin-top: 75px;
+}
+
+#resultfile-selector-container > * {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#chart-types-container {
+  text-align: center;
+}
+
+#chart-types-container > * {
+  margin: 10px;
+}
+
+mat-divider {
+  margin: 5px;
+}
+
+mat-icon {
+  height: 50px;
+  width: 50px
 }

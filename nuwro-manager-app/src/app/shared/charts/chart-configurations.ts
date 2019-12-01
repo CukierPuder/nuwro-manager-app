@@ -2,7 +2,6 @@ export const ChartConfigurations = {
   'line-chart': {
     autoexpand: 'true',
     autosize: 'true',
-    width: window.innerWidth - 200,
     margin: {
       autoexpand: 'true',
       margin: 0

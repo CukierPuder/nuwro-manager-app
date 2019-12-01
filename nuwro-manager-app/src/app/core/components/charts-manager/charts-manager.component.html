@@ -1,35 +1,48 @@
-<mat-form-field>
-    <mat-label>Experiment</mat-label>
-    <mat-select (selectionChange)="onExperimentChange($event)">
-        <mat-option *ngFor="let experiment of experiments" [value]="experiment">
+<div id="main-container">
+
+  <div id="Graph" #Graph></div>
+
+  <div id="chart-settings-container">
+
+    <div id="resultfile-selector-container">
+      <mat-form-field>
+        <mat-label>Experiment</mat-label>
+        <mat-select (selectionChange)="onExperimentChange($event)">
+          <mat-option *ngFor="let experiment of experiments" [value]="experiment">
             {{experiment.name}}
-        </mat-option>
-    </mat-select>
-</mat-form-field>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-<mat-form-field>
-    <mat-label>Measurement</mat-label>
-    <mat-select (selectionChange)="onMeasurementChange($event)">
-        <mat-option *ngFor="let measurement of measurements" [value]="measurement">
+      <mat-form-field>
+        <mat-label>Measurement</mat-label>
+        <mat-select (selectionChange)="onMeasurementChange($event)">
+          <mat-option *ngFor="let measurement of measurements" [value]="measurement">
             {{measurement.name}}
-        </mat-option>
-    </mat-select>
-</mat-form-field>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-<mat-form-field>
-    <mat-label>Files</mat-label>
-    <mat-select (selectionChange)="onResultfilesChange($event)" multiple>
-        <mat-option *ngFor="let resultfile of filteredResultfiles" [value]="resultfile">
+      <mat-form-field>
+        <mat-label>Files</mat-label>
+        <mat-select (selectionChange)="onResultfilesChange($event)" multiple>
+          <mat-option *ngFor="let resultfile of filteredResultfiles" [value]="resultfile">
             {{resultfile.filename}} [{{resultfile.nuwroversion.name}}]
-        </mat-option>
-    </mat-select>
-</mat-form-field>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-<button mat-button type="button" (click)="redrawChart()">Redraw chart</button>
+      <button mat-button type="button" (click)="redrawChart()">Redraw chart</button>
+    </div>
 
-<div id="Graph" #Graph></div>
-<div>
-    <button mat-button type="button" (click)="drawLineChart()">Line</button>
-    <button mat-button type="button" (click)="drawBarChart()">Bar</button>
-    <button mat-button type="button" (click)="drawPieChart()">Pie</button>
+    <mat-divider></mat-divider>
+
+    <div id="chart-types-container">
+      <mat-icon svgIcon="line-chart-icon" aria-hidden="false" aria-label="Line chart" (click)=drawLineChart()></mat-icon>
+      <mat-icon svgIcon="bar-chart-icon" aria-hidden="false" aria-label="Bar chart" (click)=drawBarChart()></mat-icon>
+      <mat-icon svgIcon="pie-chart-icon" aria-hidden="false" aria-label="Pie chart" (click)=drawPieChart()></mat-icon>
+    </div>
+
+  </div>
+
 </div>
