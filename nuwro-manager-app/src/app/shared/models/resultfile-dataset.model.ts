@@ -4,14 +4,16 @@ export class ResultfileDataset {
     public nuwroversion: string,
     public x: Array<number>,
     public y: Array<number>,
+    public z?: Array<number>,
     public yError?: Array<number>,
-    public xError?: Array<number>
+    public xError?: Array<number>,
+    public zError?: Array<number>
   ) { }
 
-  public toLineBarChartDataset(type: string = 'scatter'): Object {
+  public toLineBarChartDataset(chartType: string = 'scatter'): Object {
     return {
-      type: type,
-      name: this.filename + '\t' + this.nuwroversion,
+      type: chartType,
+      name: this.nuwroversion,
       x: this.x,
       y: this.y,
       error_y: {
@@ -59,6 +61,24 @@ export class ResultfileDataset {
       },
       hoverinfo: 'label+percent+name',
       textinfo: 'none'
+    }
+  }
+
+  public toScatter3dChartDataset(chartType: string = 'scatter3d'): Object {
+    return {
+      name: this.nuwroversion,
+      x: this.x,
+      y: this.y,
+      z: this.z,
+      mode: 'markers',
+      type: chartType,
+      marker: {
+        size: 5,
+        opacity: 0.8,
+        line: {
+          width: 0.5
+        }
+      }
     }
   }
 }

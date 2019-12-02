@@ -9,6 +9,10 @@
   height: 100%;
 }
 
+#Graph .modebar {
+  left: 50%;
+}
+
 #chart-settings-container {
   display: inline-block;
   vertical-align: top;

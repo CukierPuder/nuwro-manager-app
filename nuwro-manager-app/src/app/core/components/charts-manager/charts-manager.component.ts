@@ -6,10 +6,10 @@ import { SharedModelService } from 'src/app/shared/services/shared-model.service
 import { ResultfileService } from 'src/app/shared/services/resultfile.service';
 import { ApiEndpoints } from 'src/app/shared/api-endpoints';
 import { ResultfileDataset } from 'src/app/shared/models/resultfile-dataset.model';
-import { ChartConfigurations } from '../../../shared/charts/chart-configurations';
-import { ChartLayouts } from 'src/app/shared/charts/charts-layouts';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
+import { ChartConf } from 'src/app/shared/charts/chart-conf';
+import { ChartLayout } from 'src/app/shared/charts/charts-layouts';
 
 declare var Plotly: any;
 
@@ -23,12 +23,14 @@ export class ChartsManagerComponent implements OnInit {
 
   experiments: Array<Experiment>;
   measurements: Array<Measurement>;
+  pickedExperiment: Experiment;
+  pickedMeasurement: Measurement;
   filteredResultfiles: Array<Resultfile>;
   selectedResultfiles: Array<Resultfile>;
   datasets: Array<ResultfileDataset> = [];
-
-  pickedExperiment: Experiment;
-  pickedMeasurement: Measurement;
+  is3D: boolean = true;
+  chartConf: ChartConf;
+  chartLayout: ChartLayout;
 
   constructor(private sharedModelService: SharedModelService,
               private resultfileService: ResultfileService,
@@ -36,6 +38,9 @@ export class ChartsManagerComponent implements OnInit {
               sanitizer: DomSanitizer
   ) {
     this.apiEndpoints = new ApiEndpoints();
+    this.chartConf = new ChartConf();
+    this.chartLayout = new ChartLayout();
+
     iconRegistry.addSvgIcon(
       'line-chart-icon',
       sanitizer.bypassSecurityTrustResourceUrl('assets/icons/line-chart-icon.svg')
@@ -78,6 +83,7 @@ export class ChartsManagerComponent implements OnInit {
     for (const resultfile of this.selectedResultfiles) {
       this.downloadFile(resultfile);
     }
+    this.is3D = this.selectedResultfiles[0].is_3d ? true : false;
   }
 
   drawLineChart(): void {
@@ -89,7 +95,7 @@ export class ChartsManagerComponent implements OnInit {
   }
 
   drawPieChart(): void {
-    this.plotGraph('pie', 'pie-layout');
+    this.plotGraph('pie');
   }
   // <<< END OF EVENT HANDLERS
 
@@ -125,16 +131,33 @@ export class ChartsManagerComponent implements OnInit {
     /* downloads the textfiles (represented by -link- field in Resultfile objects) from server */
     this.resultfileService.downloadFile(this.apiEndpoints.getFileURL(resultfile.link)).subscribe(
       (res) => {
-        const dataset = this.parseFileToDataset(
-          resultfile.filename,
-          resultfile.nuwroversion.name,
-          res.toString()
-        );
-        if (!this.datasets.includes(dataset)) {
-          this.datasets.push(dataset);
+        if (!resultfile.is_3d) {
+          const dataset = this.parseFileToDataset(
+            resultfile.filename,
+            resultfile.nuwroversion.name,
+            res.toString()
+          );
+          if (!this.datasets.includes(dataset)) {
+            this.datasets.push(dataset);
+          }
+          Plotly.purge('Graph');
+          this.plotGraph();
         }
-        Plotly.purge('Graph');
-        this.plotGraph();
+        else {
+          console.log('Plik z danymi do wykresu 3D');
+          const dataset = this.parseFileToDataset(
+            resultfile.filename,
+            resultfile.nuwroversion.name,
+            res.toString()
+          );
+          if (!this.datasets.includes(dataset)) {
+            console.log('Zestaw zawiera juz dane z tego pliku');
+            this.datasets.push(dataset);
+          }
+          Plotly.purge('Graph');
+          console.log('Rysuje wykres...');
+          this.plotGraph('scatter3d');
+        }
       }
     );
   }
@@ -151,14 +174,14 @@ export class ChartsManagerComponent implements OnInit {
         continue;
       }
       let cols = line.split(' ');
-      if (cols.length == 2) {
+      if (cols.length === 2) {
         x.push(parseFloat(cols[0]));
         y.push(parseFloat(cols[1]));
-      } else if (cols.length == 3) {
+      } else if (cols.length === 3) {
         x.push(parseFloat(cols[0]));
         y.push(parseFloat(cols[1]));
         yError.push(parseFloat(cols[2]));
-      } else if (cols.length == 4) {
+      } else if (cols.length === 4) {
         x.push(parseFloat(cols[0]));
         y.push(parseFloat(cols[1]));
         xError.push(parseFloat(cols[2]));
@@ -168,18 +191,23 @@ export class ChartsManagerComponent implements OnInit {
     return new ResultfileDataset(filename, nuwroversion, x, y, yError, xError);
   }
 
-  private plotGraph(type: string = 'scatter', layout: string = 'line-bar-layout'): void {
+  private plotGraph(type: string = 'scatter'): void {
     const data = [];
     if (type === 'pie') {
       for (const dataset of this.datasets) {
         data.push(dataset.toPieChartDataset(this.datasets.indexOf(dataset), type));
       }
-      Plotly.newPlot('Graph', data, ChartLayouts[layout]);
-    } else {
+      Plotly.newPlot('Graph', data, this.chartConf.generatePieChartConfig('Some cool title'), this.chartLayout.generatePieChartLayout());
+    } else if (type === 'scatter' || type === 'bar') {
       for (const dataset of this.datasets) {
         data.push(dataset.toLineBarChartDataset(type));
       }
-      Plotly.newPlot('Graph', data, ChartConfigurations['line-chart'], ChartLayouts[layout]);
+      Plotly.newPlot('Graph', data, this.chartConf.generateLineBarChartConfig('Some cool title', 'X AXIS', 'Y AXIS'), this.chartLayout.generateLineBarChartLayout());
+    } else if (type === 'scatter3d') {
+      for (const dataset of this.datasets) {
+        data.push(dataset.toScatter3dChartDataset(type));
+      }
+      Plotly.newPlot('Graph', data, this.chartLayout.generateScatter3dChartLayout('X AXIS', 'Y AXIS', 'Z AXIS'));
     }
   }
 }

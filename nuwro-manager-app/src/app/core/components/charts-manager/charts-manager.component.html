@@ -37,7 +37,7 @@
 
     <mat-divider></mat-divider>
 
-    <div id="chart-types-container">
+    <div id="chart-types-container" *ngIf="!is3D">
       <mat-icon svgIcon="line-chart-icon" aria-hidden="false" aria-label="Line chart" (click)=drawLineChart()></mat-icon>
       <mat-icon svgIcon="bar-chart-icon" aria-hidden="false" aria-label="Bar chart" (click)=drawBarChart()></mat-icon>
       <mat-icon svgIcon="pie-chart-icon" aria-hidden="false" aria-label="Pie chart" (click)=drawPieChart()></mat-icon>
