@@ -29,7 +29,7 @@ export class ResultfileDataset {
     };
   }
 
-  public toPieChartDataset(indexInArray: number, chartType: string = 'pie'): Object {
+  public toPieChartDataset(indexInArray: number): Object {
     let chartCol = 0;
     let chartRow = 0;
 
@@ -50,7 +50,7 @@ export class ResultfileDataset {
     return {
       values: this.y,
       labels: this.x,
-      type: chartType,
+      type: 'pie',
       name: this.nuwroversion,
       marker: {
         colors: ['rgb(56, 75, 126)', 'rgb(18, 36, 37)', 'rgb(34, 53, 101)', 'rgb(36, 55, 57)', 'rgb(6, 4, 4)']
@@ -79,6 +79,30 @@ export class ResultfileDataset {
           width: 0.5
         }
       }
+    }
+  }
+
+  public to3dLineChartDataset(): Object {
+    return {
+      name: this.nuwroversion,
+      type: 'scatter3d',
+      mode: 'lines',
+      x: this.x,
+      y: this.y,
+      z: this.z,
+      opacity: 1,
+      line: {
+        width: 6,
+        reversescale: false
+      }
+    };
+  }
+
+  public to3dSurfaceChartDataset(): Object {
+    return {
+      name: this.nuwroversion,
+      z: this.z,
+      type: 'surface'
     }
   }
 }

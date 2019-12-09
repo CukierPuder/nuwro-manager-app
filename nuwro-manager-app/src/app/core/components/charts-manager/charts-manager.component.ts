@@ -8,7 +8,6 @@ import { ApiEndpoints } from 'src/app/shared/api-endpoints';
 import { ResultfileDataset } from 'src/app/shared/models/resultfile-dataset.model';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
-import { ChartConf } from 'src/app/shared/charts/chart-conf';
 import { ChartLayout } from 'src/app/shared/charts/charts-layouts';
 
 declare var Plotly: any;
@@ -29,7 +28,6 @@ export class ChartsManagerComponent implements OnInit {
   selectedResultfiles: Array<Resultfile>;
   datasets: Array<ResultfileDataset> = [];
   is3D: boolean = true;
-  chartConf: ChartConf;
   chartLayout: ChartLayout;
 
   constructor(private sharedModelService: SharedModelService,
@@ -38,7 +36,6 @@ export class ChartsManagerComponent implements OnInit {
               sanitizer: DomSanitizer
   ) {
     this.apiEndpoints = new ApiEndpoints();
-    this.chartConf = new ChartConf();
     this.chartLayout = new ChartLayout();
 
     iconRegistry.addSvgIcon(
@@ -96,6 +93,18 @@ export class ChartsManagerComponent implements OnInit {
 
   drawPieChart(): void {
     this.plotGraph('pie');
+  }
+
+  drawScatter3d(): void {
+    this.plotGraph('scatter3d');
+  }
+
+  drawSurface3d(): void {
+    this.plotGraph('surface3d');
+  }
+
+  drawLine3d(): void {
+    this.plotGraph('line3d');
   }
   // <<< END OF EVENT HANDLERS
 
@@ -195,19 +204,29 @@ export class ChartsManagerComponent implements OnInit {
     const data = [];
     if (type === 'pie') {
       for (const dataset of this.datasets) {
-        data.push(dataset.toPieChartDataset(this.datasets.indexOf(dataset), type));
+        data.push(dataset.toPieChartDataset(this.datasets.indexOf(dataset)));
       }
-      Plotly.newPlot('Graph', data, this.chartConf.generatePieChartConfig('Some cool title'), this.chartLayout.generatePieChartLayout());
+      Plotly.newPlot('Graph', data, this.chartLayout.generatePieChartLayout());
     } else if (type === 'scatter' || type === 'bar') {
       for (const dataset of this.datasets) {
         data.push(dataset.toLineBarChartDataset(type));
       }
-      Plotly.newPlot('Graph', data, this.chartConf.generateLineBarChartConfig('Some cool title', 'X AXIS', 'Y AXIS'), this.chartLayout.generateLineBarChartLayout());
+      Plotly.newPlot('Graph', data,this.chartLayout.generateLineBarChartLayout());
     } else if (type === 'scatter3d') {
       for (const dataset of this.datasets) {
         data.push(dataset.toScatter3dChartDataset(type));
       }
-      Plotly.newPlot('Graph', data, this.chartLayout.generateScatter3dChartLayout('X AXIS', 'Y AXIS', 'Z AXIS'));
+      Plotly.newPlot('Graph', data, this.chartLayout.generateScatter3dChartLayout('Awesome scatter chart title', 'X AXIS', 'Y AXIS', 'Z AXIS'));
+    } else if (type === 'line3d') {
+      for (const dataset of this.datasets) {
+        data.push(dataset.to3dLineChartDataset());
+      }
+      Plotly.newPlot('Graph', data, this.chartLayout.generateScatter3dChartLayout('Awesome line chart title', 'X AXIS', 'Y AXIS', 'Z AXIS'));
+    } else if (type === 'surface3d') {
+      for (const dataset of this.datasets) {
+        data.push(dataset.to3dSurfaceChartDataset());
+      }
+      Plotly.newPlot('Graph', data, this.chartLayout.generateScatter3dChartLayout('Awesome surface chart title', 'X AXIS', 'Y AXIS', 'Z AXIS'));
     }
   }
 }
