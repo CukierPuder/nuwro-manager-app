@@ -138,6 +138,7 @@ export class ChartsManagerComponent implements OnInit {
 
   private downloadFile(resultfile: Resultfile): void {
     /* downloads the textfiles (represented by -link- field in Resultfile objects) from server */
+    console.log(resultfile.link);
     this.resultfileService.downloadFile(this.apiEndpoints.getFileURL(resultfile.link)).subscribe(
       (res) => {
         if (!resultfile.is_3d) {
@@ -153,18 +154,15 @@ export class ChartsManagerComponent implements OnInit {
           this.plotGraph();
         }
         else {
-          console.log('Plik z danymi do wykresu 3D');
           const dataset = this.parseFileToDataset(
             resultfile.filename,
             resultfile.nuwroversion.name,
             res.toString()
           );
           if (!this.datasets.includes(dataset)) {
-            console.log('Zestaw zawiera juz dane z tego pliku');
             this.datasets.push(dataset);
           }
           Plotly.purge('Graph');
-          console.log('Rysuje wykres...');
           this.plotGraph('scatter3d');
         }
       }

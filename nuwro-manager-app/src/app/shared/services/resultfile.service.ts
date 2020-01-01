@@ -38,9 +38,6 @@ export class ResultfileService {
     formData.append('x_axis', resultfile.x_axis);
     formData.append('y_axis', resultfile.y_axis);
     formData.append('result_file', resultfile.result_file);
-    for (const relatedDatafile of resultfile.related_datafiles) {
-      formData.append('related_datafiles', relatedDatafile.id.toString());
-    }
 
     return this.client.post<Resultfile>(this.apiEndpoints.resultfileGetAllPost(), formData, { headers: this.httpHeaders });
   }

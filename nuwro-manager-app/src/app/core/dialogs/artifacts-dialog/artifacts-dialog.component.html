@@ -1,0 +1,19 @@
+<div id="container">
+    <div id="header">
+        <h3>{{this.title}}</h3>
+        <p>List of artifacts:</p>
+        <mat-divider></mat-divider>
+    </div>
+    <div id="artifacts-container">
+        <mat-list>
+            <ng-container *ngFor="let artifact of artifacts">
+                <a href="{{downloadHost}}{{artifact.link}}" download>{{artifact.filename}}></a>
+                <mat-list-item (click)="redirectToFile(artifact.link)" download>{{artifact.filename}}</mat-list-item>
+            </ng-container>
+        </mat-list>
+    </div>
+    <div id="drop-area">
+        <app-file-drop [mode]="mode" [resultfileId]="resultfileId" (uploaded)="fetchArtifacts($event)"></app-file-drop>
+    </div>
+
+</div>

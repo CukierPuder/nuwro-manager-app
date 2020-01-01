@@ -1,0 +1,29 @@
+#container {
+    max-height: 500px;
+    width: 300px;
+}
+
+#header {
+    height: 10%;
+}
+
+#artifacts-container {
+    height: 200px;
+    overflow-y: scroll;
+}
+
+#drop-area {
+    height: 20%;
+}
+
+p {
+    color: #0782d0;
+}
+
+a {
+    display: block;
+}
+
+mat-list-item:hover {
+    background-color: #d3d3dd;
+}

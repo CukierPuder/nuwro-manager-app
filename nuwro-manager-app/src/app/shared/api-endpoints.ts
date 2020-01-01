@@ -2,14 +2,14 @@ import { environment } from '../../environments/environment';
 
 export class ApiEndpoints {
   private host = environment.HOST_ADDR;
-  private apiPrefix = 'api';
-  private userPrefix = 'user';
-  private managerPrefix = 'manager';
-  private experimentPrefix = 'experiments';
-  private measurementPrefix = 'measurements';
-  private nuwroversionPrefix = 'nuwroversions';
-  private datafilePrefix = 'datafiles';
-  private resultfilePrefix = 'resultfiles';
+  private managerAPI = 'api/manager';
+  private userAPI = 'api/user';
+  private experiments = 'experiments';
+  private measurements = 'measurements';
+  private nuwroversions = 'nuwroversions';
+  private datafiles = 'datafiles';
+  private resultfiles = 'resultfiles';
+  private artifacts = 'artifacts';
 
 
   getHostname(): string {
@@ -21,32 +21,31 @@ export class ApiEndpoints {
   }
 
   // user api endpoints
-  userSignIn(): string { return `${this.host}/${this.apiPrefix}/${this.userPrefix}/token/`; }
-  userSignUp(): string { return `${this.host}/${this.apiPrefix}/${this.userPrefix}/create/`; }
-  userAboutMe(): string { return `${this.host}/${this.apiPrefix}/${this.userPrefix}/me/`; }
+  userSignIn(): string { return `${this.host}/${this.userAPI}/token/`; }
+  userSignUp(): string { return `${this.host}/${this.userAPI}/create/`; }
+  userAboutMe(): string { return `${this.host}/${this.userAPI}/me/`; }
 
-  // experiment api endpoints
-  experimentGetPost(): string { return `${this.host}/${this.apiPrefix}/${this.managerPrefix}/${this.experimentPrefix}/`; }
-  experimentGet(id: number): string { return `${this.host}/${this.apiPrefix}/${this.managerPrefix}/${this.experimentPrefix}/${id}/`; }
-  experimentGetUrl(id: number): string { return `/${this.apiPrefix}/${this.managerPrefix}/${this.experimentPrefix}/${id}/`; }
+  // experiments api endpoints
+  experimentGetPost(): string { return `${this.host}/${this.managerAPI}/${this.experiments}/`; }
+  experimentGet(id: number): string { return `${this.host}/${this.managerAPI}/${this.experiments}/${id}/`; }
+  experimentGetUrl(id: number): string { return `/${this.managerAPI}/${this.experiments}/${id}/`; }
 
   // measurement api endpoints
-  measurementGetPost(): string { return `${this.host}/${this.apiPrefix}/${this.managerPrefix}/${this.measurementPrefix}/`; }
-  measurementGet(id: number): string { return `${this.host}/${this.apiPrefix}/${this.managerPrefix}/${this.measurementPrefix}/${id}/`; }
-  measurementGetUrl(id: number): string { return `/${this.apiPrefix}/${this.managerPrefix}/${this.measurementPrefix}/${id}/`; }
+  measurementGetPost(): string { return `${this.host}/${this.managerAPI}/${this.measurements}/`; }
+  measurementGet(id: number): string { return `${this.host}/${this.managerAPI}/${this.measurements}/${id}/`; }
+  measurementGetUrl(id: number): string { return `/${this.managerAPI}/${this.measurements}/${id}/`; }
 
   // nuwroversion api endpoints
-  nuwroversionGetPost(): string { return `${this.host}/${this.apiPrefix}/${this.managerPrefix}/${this.nuwroversionPrefix}/`; }
-  nuwroversionGet(id: number): string { return `${this.host}/${this.apiPrefix}/${this.managerPrefix}/${this.nuwroversionPrefix}/${id}/`; }
-  nuwroversionGetUrl(id: number): string { return `/${this.apiPrefix}/${this.managerPrefix}/${this.nuwroversionPrefix}/${id}/`; }
-
-  // datafile api endpoints
-  datafileGetAllPost(): string { return `${this.host}/${this.apiPrefix}/${this.managerPrefix}/${this.datafilePrefix}/`; }
-  datafileGet(id: number): string { return `${this.host}/${this.apiPrefix}/${this.managerPrefix}/${this.datafilePrefix}/${id}`; }
-  datafileGetUrl(id: number): string { return `/${this.apiPrefix}/${this.managerPrefix}/${this.datafilePrefix}/${id}`; }
+  nuwroversionGetPost(): string { return `${this.host}/${this.managerAPI}/${this.nuwroversions}/`; }
+  nuwroversionGet(id: number): string { return `${this.host}/${this.managerAPI}/${this.nuwroversions}/${id}/`; }
+  nuwroversionGetUrl(id: number): string { return `/${this.managerAPI}/${this.nuwroversions}/${id}/`; }
 
   // resultfile api endpoints
-  resultfileGetAllPost(): string { return `${this.host}/${this.apiPrefix}/${this.managerPrefix}/${this.resultfilePrefix}/`; }
-  resultfileGet(id: number): string { return `${this.host}/${this.apiPrefix}/${this.managerPrefix}/${this.resultfilePrefix}/${id}`; }
-  resultfileGetUrl(id: number): string { return `/${this.apiPrefix}/${this.managerPrefix}/${this.resultfilePrefix}/${id}`; }
+  resultfileGetAllPost(): string { return `${this.host}/${this.managerAPI}/${this.resultfiles}/`; }
+  resultfileGet(id: number): string { return `${this.host}/${this.managerAPI}/${this.resultfiles}/${id}`; }
+  resultfileGetUrl(id: number): string { return `/${this.managerAPI}/${this.resultfiles}/${id}`; }
+
+  artifactGetAllPost(): string { return `${this.host}/${this.managerAPI}/${this.artifacts}/`; }
+  artifactGet(id: number): string { return `${this.host}/${this.managerAPI}/${this.artifacts}/${id}`; }
+  artifactGetUrl(id: number): string { return `${this.host}/${this.managerAPI}/${this.artifacts}/${id}`; }
 }

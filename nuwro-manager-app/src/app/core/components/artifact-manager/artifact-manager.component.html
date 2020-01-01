@@ -1,0 +1,27 @@
+<mat-grid-list cols="1" rowHeight="fit">
+    <table mat-table [dataSource]="itemsList">
+      <ng-container matColumnDef="filename">
+        <th mat-header-cell *matHeaderCellDef> Filename </th>
+        <td mat-cell *matCellDef="let item"> {{item.filename}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="experiment">
+        <th mat-header-cell *matHeaderCellDef> Experiment </th>
+        <td mat-cell *matCellDef="let item"> {{item.experiment.name}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="measurement">
+        <th mat-header-cell *matHeaderCellDef> Measurement </th>
+        <td mat-cell *matCellDef="let item"> {{item.measurement.name}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="nuwroversion">
+        <th mat-header-cell *matHeaderCellDef> Nuwroversion </th>
+        <td mat-cell *matCellDef="let item"> {{item.nuwroversion.name}} </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row class="dataRow" *matRowDef="let clickedItem; columns: columnsToDisplay"
+        (click)="displayArtifactsDialog(clickedItem)"></tr>
+    </table>
+  </mat-grid-list>

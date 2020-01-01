@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Resultfile } from 'src/app/shared/models/resultfile.model';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { filter } from 'rxjs/operators';
+
 import { ApiEndpoints } from 'src/app/shared/api-endpoints';
 import { ResultfileService } from 'src/app/shared/services/resultfile.service';
 import { ResultfileDialogComponent } from '../../dialogs/resultfile-dialog/resultfile-dialog.component';

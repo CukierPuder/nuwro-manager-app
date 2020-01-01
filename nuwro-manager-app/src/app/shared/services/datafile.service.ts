@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+/*import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
@@ -49,3 +49,4 @@ export class DatafileService {
       .set('Authorization', `token ${this.cookieService.get('authToken')}`);
   }
 }
+*/

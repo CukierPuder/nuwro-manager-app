@@ -1,7 +1,6 @@
 import { Experiment } from './experiment.model';
 import { Measurement } from './measurement.model';
 import { Nuwroversion } from './nuwroversion.model';
-import { Datafile } from './datafile.model';
 
 export class Resultfile {
   constructor(
@@ -14,7 +13,6 @@ export class Resultfile {
     public y_axis: string,
     public filename: string,
     public result_file: File,
-    public related_datafiles: Array<Datafile>,
     public link?: string,
     public creation_date?: Date,
     public id?: number
@@ -24,19 +22,14 @@ export class Resultfile {
     return this.filename;
   }
 
-  public getArrayOfDatafileIds(): Array<number> {
-    const ids: Array<number> = [];
-    for (let datafile of this.related_datafiles) {
-      ids.push(datafile.id);
-    }
-
-    return ids;
-  }
-
   public is3dToString(): string {
     if (this.is_3d) {
       return 'True';
     }
     return 'False';
+  }
+
+  public getId(): string {
+    return this.id.toString();
   }
 }

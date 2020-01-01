@@ -39,12 +39,6 @@
       <input matInput formControlName="yAxis" placeholder="Y axis name" (change)="onRequiredFieldChange()">
     </mat-form-field>
 
-    <mat-form-field>
-      <mat-select formControlName="relatedDatafiles" (selectionChange)="onRequiredFieldChange()" multiple>
-        <mat-option *ngFor="let related_datafile of relatedDatafiles" [value]="related_datafile">{{related_datafile.filename}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-
     <input type="file" formControlName="file" (change)="handleFileInput($event.target.files)" placeholder="Pick a file">
 
   </mat-dialog-content>

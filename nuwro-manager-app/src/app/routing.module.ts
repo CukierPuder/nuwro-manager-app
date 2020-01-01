@@ -2,9 +2,9 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './core/components/login/login.component';
 import { SharedModelManagerComponent } from './core/components/shared-model-manager/shared-model-manager.component';
 import { AuthenticationGuardService } from './shared/services/authentication-guard.service';
-import { DatafileManagerComponent } from './core/components/datafile-manager/datafile-manager.component';
 import { ResultfileManagerComponent } from './core/components/resultfile-manager/resultfile-manager.component';
 import { ChartsManagerComponent } from './core/components/charts-manager/charts-manager.component';
+import { ArtifactManagerComponent } from './core/components/artifact-manager/artifact-manager.component';
 
 
 export const appRoutes: Routes = [
@@ -33,8 +33,8 @@ export const appRoutes: Routes = [
     canActivate: [AuthenticationGuardService]
   },
   {
-    path: 'datafile-manager',
-    component: DatafileManagerComponent,
+    path: 'artifact-manager',
+    component: ArtifactManagerComponent,
     canActivate: [AuthenticationGuardService]
   },
   {

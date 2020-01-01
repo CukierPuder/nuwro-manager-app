@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { DatafileService } from 'src/app/shared/services/datafile.service';
-import { Datafile } from 'src/app/shared/models/datafile.model';
+/*import { Component, OnInit } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { filter } from 'rxjs/operators';
+
+import { DatafileService } from 'src/app/shared/services/datafile.service';
+import { Datafile } from 'src/app/shared/models/datafile.model';
 import { DatafileDialogComponent } from '../../dialogs/datafile-dialog/datafile-dialog.component';
 import { ApiEndpoints } from 'src/app/shared/api-endpoints';
 
@@ -59,3 +60,4 @@ export class DatafileManagerComponent implements OnInit {
     );
   }
 }
+*/

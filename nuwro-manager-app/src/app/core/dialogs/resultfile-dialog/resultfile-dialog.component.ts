@@ -2,13 +2,11 @@ import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatCheckbox } from '@angular/material';
 
-import { Datafile } from 'src/app/shared/models/datafile.model';
 import { Experiment } from 'src/app/shared/models/experiment.model';
 import { Measurement } from 'src/app/shared/models/measurement.model';
 import { SharedModelService } from 'src/app/shared/services/shared-model.service';
 import { Nuwroversion } from 'src/app/shared/models/nuwroversion.model';
 import { Resultfile } from 'src/app/shared/models/resultfile.model';
-import { DatafileService } from 'src/app/shared/services/datafile.service';
 
 @Component({
   selector: 'app-resultfile-dialog',
@@ -19,7 +17,6 @@ export class ResultfileDialogComponent implements OnInit {
   experiments: Array<Experiment>;
   measurements: Array<Measurement>;
   nuwroversions: Array<Nuwroversion>;
-  relatedDatafiles: Array<Datafile>;
   form: FormGroup;
   is3D: boolean = false;
   submitButtonDisabled: boolean = true;
@@ -31,7 +28,6 @@ export class ResultfileDialogComponent implements OnInit {
 
   constructor(
     private sharedModelService: SharedModelService,
-    private datafileService: DatafileService,
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<ResultfileDialogComponent>
   ) { }
@@ -48,7 +44,6 @@ export class ResultfileDialogComponent implements OnInit {
       description: '',
       xAxis: '',
       yAxis: '',
-      relatedDatafiles: '',
       file: ''
     });
   }
@@ -69,20 +64,17 @@ export class ResultfileDialogComponent implements OnInit {
       form.value.yAxis,
       this.fileToUpload.name,
       this.fileToUpload,
-      form.value.relatedDatafiles
     );
     this.dialogRef.close(resultfile);
   }
 
   onExperimentChange(event): void {
     this.pickedExperiment = event.value;
-    this.fetchRelatedDatafiles();
     this.onRequiredFieldChange();
   }
 
   onMeasurementChange(event): void {
     this.pickedMeasurement = event.value;
-    this.fetchRelatedDatafiles();
     this.onRequiredFieldChange();
   }
 
@@ -92,8 +84,7 @@ export class ResultfileDialogComponent implements OnInit {
         this.form.value.nuwroversion &&
         this.form.value.xAxis &&
         this.form.value.yAxis &&
-        this.fileToUpload &&
-        this.form.value.relatedDatafiles.length > 0) {
+        this.fileToUpload) {
       this.submitButtonDisabled = false;
     } else {
       this.submitButtonDisabled = true;
@@ -116,13 +107,5 @@ export class ResultfileDialogComponent implements OnInit {
     this.sharedModelService.getAll('nuwroversion').subscribe(
       (res) => { this.nuwroversions = res; }
     );
-  }
-
-  private fetchRelatedDatafiles(): void {
-    if (this.pickedExperiment != null && this.pickedMeasurement != null) {
-      this.datafileService.filter(this.pickedExperiment, this.pickedMeasurement).subscribe(
-        (res) => { this.relatedDatafiles = res; }
-      );
-    }
   }
 }
