@@ -31,7 +31,7 @@ export class DatafileService {
     formData.append('measurement', datafile.measurement.id.toString());
     formData.append('variable', datafile.variable);
     formData.append('filename', datafile.filename);
-    formData.append('input_file', datafile.input_file);
+    formData.append('artifact', datafile.input_file);
 
     return this.client.post<Datafile>(this.apiEndpoints.datafileGetAllPost(), formData, { headers: this.httpHeaders });
   }

@@ -45,7 +45,7 @@ export class DatafileManagerComponent implements OnInit {
   }
 
   redirectToFile(clickedItem: Datafile): void {
-    window.open(this.apiEndpoints.getHostname() + clickedItem.link);
+    window.open(this.apiEndpoints.getHostnameWoTrailingSlash() + clickedItem.link);
   }
 
   private refreshItemsList(): void {

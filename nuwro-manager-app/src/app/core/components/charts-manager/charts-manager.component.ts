@@ -106,7 +106,7 @@ export class ChartsManagerComponent implements OnInit {
 
   private downloadFile(resultfile: Resultfile): void {
     /* downloads the textfiles (represented by -link- field in Resultfile objects) from server */
-    this.resultfileService.downloadFile(this.apiEndpoints.getFileURL(resultfile.link)).subscribe(
+    this.resultfileService.downloadFile(this.apiEndpoints.getFileURNoTrailingSlashAfterHost(resultfile.link)).subscribe(
       (res) => {
         const dataset = this.parseFileToDataset(
           resultfile.filename,

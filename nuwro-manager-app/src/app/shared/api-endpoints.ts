@@ -8,7 +8,7 @@ export class ApiEndpoints {
   private experimentPrefix = 'experiments';
   private measurementPrefix = 'measurements';
   private nuwroversionPrefix = 'nuwroversions';
-  private datafilePrefix = 'datafiles';
+  private datafilePrefix = 'artifacts';
   private resultfilePrefix = 'resultfiles';
 
 
@@ -16,8 +16,16 @@ export class ApiEndpoints {
     return this.host + '/';
   }
 
+  getHostnameWoTrailingSlash(): string {
+    return this.host;
+  }
+
   getFileURL(fileURL: string): string {
     return this.host + '/' + fileURL;
+  }
+
+  getFileURNoTrailingSlashAfterHost(fileURL: string): string {
+    return this.host + fileURL;
   }
 
   // user api endpoints

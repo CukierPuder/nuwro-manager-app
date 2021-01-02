@@ -9,7 +9,7 @@ export class Datafile {
     public filename: string,
     public input_file: File,
     public link?: string,
-    public creation_date?: Date,
+    public addition_date?: Date,
     public id?: number
   ) { }
 
