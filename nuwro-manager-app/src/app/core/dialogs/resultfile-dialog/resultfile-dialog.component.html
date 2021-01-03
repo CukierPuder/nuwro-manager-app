@@ -31,14 +31,6 @@
       <input matInput formControlName="description" placeholder="Description (optional)">
     </mat-form-field>
 
-    <mat-form-field>
-      <input matInput formControlName="xAxis" placeholder="X axis name" (change)="onRequiredFieldChange()">
-    </mat-form-field>
-
-    <mat-form-field>
-      <input matInput formControlName="yAxis" placeholder="Y axis name" (change)="onRequiredFieldChange()">
-    </mat-form-field>
-
     <input type="file" formControlName="file" (change)="handleFileInput($event.target.files)" placeholder="Pick a file">
 
   </mat-dialog-content>

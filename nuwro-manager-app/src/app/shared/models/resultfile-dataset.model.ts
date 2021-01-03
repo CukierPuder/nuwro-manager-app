@@ -3,8 +3,11 @@ export class ResultfileDataset {
     public filename: string,
     public nuwroversion: string,
     public x: Array<number>,
+    public x_axis_name: string,
     public y: Array<number>,
+    public y_axis_name: string,
     public z?: Array<number>,
+    public z_axis_name?: string,
     public yError?: Array<number>,
     public xError?: Array<number>,
     public zError?: Array<number>
@@ -70,6 +73,21 @@ export class ResultfileDataset {
       x: this.x,
       y: this.y,
       z: this.z,
+      error_x: {
+        type: 'data',
+        array: this.xError,
+        visible: true
+      },
+      error_y: {
+        type: 'data',
+        array: this.yError,
+        visible: true
+      },
+      error_z: {
+        type: 'data',
+        array: this.zError,
+        visible: true
+      },
       mode: 'markers',
       type: chartType,
       marker: {

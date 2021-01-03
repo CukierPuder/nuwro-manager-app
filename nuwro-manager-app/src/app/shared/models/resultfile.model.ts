@@ -9,8 +9,6 @@ export class Resultfile {
     public nuwroversion: Nuwroversion,
     public is_3d: boolean,
     public description: string,
-    public x_axis: string,
-    public y_axis: string,
     public filename: string,
     public result_file: File,
     public link?: string,

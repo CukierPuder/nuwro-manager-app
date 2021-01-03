@@ -171,31 +171,63 @@ export class ChartsManagerComponent implements OnInit {
   // <<< END OF API REQUESTS HANDLERS
 
   private parseFileToDataset(filename: string, nuwroversion: string, fileContent: string): ResultfileDataset {
+    let headers: Array<string> = [];
+    let axes_names: Array<string> = [];
+    let x_axis_name: string = 'X';
+    let y_axis_name: string = 'Y';
+    let z_axis_name: string = 'Z';
     let x: Array<number> = [];
     let xError: Array<number> = [];
     let y: Array<number> = [];
     let yError: Array<number> = [];
+    let z: Array<number> = [];
+    let zError: Array<number> = [];
 
     for (const line of fileContent.split(/[\r\n]+/)) {
-      if (line.startsWith('#')) {
-        continue;
-      }
+      if (line.startsWith('## ')) { headers = line.substring(3).split(' '); }
+      if (line.startsWith('# ')) { axes_names = line.substring(2).split(' '); }
+      if (line === '' || line.length < 1) { continue; }
       let cols = line.split(' ');
-      if (cols.length === 2) {
-        x.push(parseFloat(cols[0]));
-        y.push(parseFloat(cols[1]));
-      } else if (cols.length === 3) {
-        x.push(parseFloat(cols[0]));
-        y.push(parseFloat(cols[1]));
-        yError.push(parseFloat(cols[2]));
-      } else if (cols.length === 4) {
-        x.push(parseFloat(cols[0]));
-        y.push(parseFloat(cols[1]));
-        xError.push(parseFloat(cols[2]));
-        yError.push(parseFloat(cols[3]));
+
+      if (headers.indexOf('x') >= 0) {
+        let index: number = headers.indexOf('x');
+        x.push(parseFloat(cols[index]));
+      }
+      if (headers.indexOf('xe') >= 0) {
+        let index: number = headers.indexOf('xe');
+        xError.push(parseFloat(cols[index]));
+      }
+      if (headers.indexOf('y') >= 0) {
+        let index: number = headers.indexOf('y');
+        y.push(parseFloat(cols[index]));
+      }
+      if (headers.indexOf('ye') >= 0) {
+        let index: number = headers.indexOf('ye');
+        yError.push(parseFloat(cols[index]));
+      }
+      if (headers.indexOf('z') >= 0) {
+        let index: number = headers.indexOf('z');
+        z.push(parseFloat(cols[index]));
+      }
+      if (headers.indexOf('ze') >= 0) {
+        let index: number = headers.indexOf('ze');
+        zError.push(parseFloat(cols[index]));
       }
     }
-    return new ResultfileDataset(filename, nuwroversion, x, y, yError, xError);
+
+    if (headers.indexOf('x') >= 0) { x_axis_name = axes_names[headers.indexOf('x')]; }
+    if (headers.indexOf('y') >= 0) { y_axis_name = axes_names[headers.indexOf('y')]; }
+    if (headers.indexOf('z') >= 0) { z_axis_name = axes_names[headers.indexOf('z')]; }
+
+    console.log(x);
+    console.log(y);
+    console.log(z);
+
+    console.log(yError);
+    console.log(xError);
+    console.log(zError);
+
+    return new ResultfileDataset(filename, nuwroversion, x, x_axis_name, y, y_axis_name, z, z_axis_name, yError, xError, zError);
   }
 
   private plotGraph(type: string = 'scatter'): void {
@@ -209,17 +241,17 @@ export class ChartsManagerComponent implements OnInit {
       for (const dataset of this.datasets) {
         data.push(dataset.toLineBarChartDataset(type));
       }
-      Plotly.newPlot('Graph', data,this.chartLayout.generateLineBarChartLayout());
+      Plotly.newPlot('Graph', data,this.chartLayout.generateLineBarChartLayout('Line/Bar Chart', this.datasets[0].x_axis_name, this.datasets[0].y_axis_name));
     } else if (type === 'scatter3d') {
       for (const dataset of this.datasets) {
         data.push(dataset.toScatter3dChartDataset(type));
       }
-      Plotly.newPlot('Graph', data, this.chartLayout.generateScatter3dChartLayout('Awesome scatter chart title', 'X AXIS', 'Y AXIS', 'Z AXIS'));
+      Plotly.newPlot('Graph', data, this.chartLayout.generateScatter3dChartLayout('Scatter 3D Chart', this.datasets[0].x_axis_name, this.datasets[0].y_axis_name, this.datasets[0].z_axis_name));
     } else if (type === 'line3d') {
       for (const dataset of this.datasets) {
         data.push(dataset.to3dLineChartDataset());
       }
-      Plotly.newPlot('Graph', data, this.chartLayout.generateScatter3dChartLayout('Awesome line chart title', 'X AXIS', 'Y AXIS', 'Z AXIS'));
+      Plotly.newPlot('Graph', data, this.chartLayout.generateScatter3dChartLayout('Line 3D Chart', this.datasets[0].x_axis_name, this.datasets[0].y_axis_name, this.datasets[0].z_axis_name));
     } else if (type === 'surface3d') {
       for (const dataset of this.datasets) {
         data.push(dataset.to3dSurfaceChartDataset());
@@ -237,7 +269,7 @@ export class ChartsManagerComponent implements OnInit {
           [25.66785, 63.05717, 22.1414, 17.074, 41.74483, 60.27227, 81.42432, 114.444, 102.3234, 101.7878],
           [12.827, 69.20554, 46.76293, 13.96517, 33.88744, 61.82613, 84.74799, 121.122, 145.2741, 153.1797]
         ], type: 'surface'}
-      ], this.chartLayout.generateScatter3dChartLayout('Awesome surface chart title', 'X AXIS', 'Y AXIS', 'Z AXIS'));
+      ], this.chartLayout.generateScatter3dChartLayout('Surface 3D Chart', this.datasets[0].x_axis_name, this.datasets[0].y_axis_name, this.datasets[0].z_axis_name));
     }
   }
 }

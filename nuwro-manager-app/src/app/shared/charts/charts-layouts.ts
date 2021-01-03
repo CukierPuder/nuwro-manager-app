@@ -2,7 +2,7 @@ export class ChartLayout {
   constructor() { }
 
   public generateLineBarChartLayout(
-    chartTitle: string = 'Line/Bar chart title',
+    chartTitle: string = 'Line/Bar Chart',
     xAxisName: string = 'X AXIS NAME',
     yAxisName: string = 'Y AXIS NAME'
   ): Object {
@@ -36,7 +36,7 @@ export class ChartLayout {
     };
   }
 
-  public generatePieChartLayout(chartTitle: string = 'Chart title'): Object {
+  public generatePieChartLayout(chartTitle: string = 'Pie Chart'): Object {
     return {
       title: chartTitle,
       type: 'scattergl',
@@ -56,7 +56,7 @@ export class ChartLayout {
   }
 
   public generateScatter3dChartLayout(
-    chartTitle: string = 'Chart title',
+    chartTitle: string = 'Scatter 3D',
     xAxisName: string = 'X AXIS NAME',
     yAxisName: string = 'Y AXIS NAME',
     zAxisName: string = 'Z AXIS NAME'

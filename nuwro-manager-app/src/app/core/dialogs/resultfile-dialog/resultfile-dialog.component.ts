@@ -42,8 +42,6 @@ export class ResultfileDialogComponent implements OnInit {
       measurement: '',
       nuwroversion: '',
       description: '',
-      xAxis: '',
-      yAxis: '',
       file: ''
     });
   }
@@ -60,8 +58,6 @@ export class ResultfileDialogComponent implements OnInit {
       form.value.nuwroversion,
       this.is3dCheckbox.checked,
       form.value.description,
-      form.value.xAxis,
-      form.value.yAxis,
       this.fileToUpload.name,
       this.fileToUpload,
     );
@@ -82,8 +78,6 @@ export class ResultfileDialogComponent implements OnInit {
     if (this.form.value.experiment &&
         this.form.value.measurement &&
         this.form.value.nuwroversion &&
-        this.form.value.xAxis &&
-        this.form.value.yAxis &&
         this.fileToUpload) {
       this.submitButtonDisabled = false;
     } else {

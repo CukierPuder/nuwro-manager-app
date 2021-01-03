@@ -13,11 +13,11 @@ export class ApiEndpoints {
 
 
   getHostname(): string {
-    return this.host + '/';
+    return this.host;
   }
 
   getFileURL(fileURL: string): string {
-    return this.host + '/' + fileURL;
+    return this.host + fileURL;
   }
 
   // user api endpoints
