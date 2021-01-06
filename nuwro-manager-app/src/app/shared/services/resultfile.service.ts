@@ -57,6 +57,11 @@ export class ResultfileService {
     return this.client.get<File>(url, requestOptions);
   }
 
+  public deleteFile(id: number): Observable<void> {
+    this.refreshHttpHeaders();
+    return this.client.delete<void>(this.apiEndpoints.resultfileGet(id), {headers: this.httpHeaders})
+  }
+
   private refreshHttpHeaders(): void {
     this.httpHeaders = new HttpHeaders()
       .set('Authorization', `token ${this.cookieService.get('authToken')}`);

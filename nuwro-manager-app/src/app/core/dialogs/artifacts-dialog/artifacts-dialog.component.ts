@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ArtifactService } from 'src/app/shared/services/artifact.service';
 import { Artifact } from 'src/app/shared/models/artifact.model';
 import { ApiEndpoints } from 'src/app/shared/api-endpoints';
+import { ResultfileService } from 'src/app/shared/services/resultfile.service';
 
 @Component({
   selector: 'app-artifacts-dialog',
@@ -19,6 +20,7 @@ export class ArtifactsDialogComponent implements OnInit {
   private apiEndpoints: ApiEndpoints;
 
   constructor(private artifactService: ArtifactService,
+              private resultfileService: ResultfileService,
               private dialogRef: MatDialogRef<ArtifactsDialogComponent>,
               @Inject(MAT_DIALOG_DATA) private data) {
     this.apiEndpoints = new ApiEndpoints();
@@ -43,6 +45,14 @@ export class ArtifactsDialogComponent implements OnInit {
         // TODO: display a modal error message
       }
     )
+  }
+
+  private deleteResultfile(): void {
+    this.resultfileService.deleteFile(this.resultfileId).subscribe(
+      (res) => {},
+      (err) => {}
+    )
+    this.dialogRef.close();
   }
 
   public redirectToFile(artifactLink: string): void {

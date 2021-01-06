@@ -6,6 +6,7 @@ import { filter } from 'rxjs/operators';
 import { ApiEndpoints } from 'src/app/shared/api-endpoints';
 import { ResultfileService } from 'src/app/shared/services/resultfile.service';
 import { ResultfileDialogComponent } from '../../dialogs/resultfile-dialog/resultfile-dialog.component';
+import { ArtifactsDialogComponent } from '../../dialogs/artifacts-dialog/artifacts-dialog.component';
 
 
 @Component({
@@ -16,7 +17,8 @@ import { ResultfileDialogComponent } from '../../dialogs/resultfile-dialog/resul
 export class ResultfileManagerComponent implements OnInit {
   itemsList: Array<Resultfile>;
   columnsToDisplay: string[] = ['filename', 'experiment', 'measurement', 'nuwroversion', 'is_3d', 'created'];
-  dialogRef: MatDialogRef<ResultfileDialogComponent>;
+  resultFileDialogRef: MatDialogRef<ResultfileDialogComponent>;
+  artifactsListDialogRef: MatDialogRef<ArtifactsDialogComponent>;
   apiEndpoints: ApiEndpoints;
 
   constructor(
@@ -28,12 +30,26 @@ export class ResultfileManagerComponent implements OnInit {
     this.refreshItemsList();
   }
 
+  displayArtifactsDialog(clickedItem: Resultfile): void {
+    this.artifactsListDialogRef = this.dialog.open(ArtifactsDialogComponent, {
+      hasBackdrop: true,
+      data: {
+        id: clickedItem.id,
+        resultfileName: clickedItem.filename,
+      }
+    });
+
+    this.artifactsListDialogRef.afterClosed().subscribe(() => {
+      this.refreshItemsList();
+    });
+  }
+
   openCreateNewRecord(): void {
-    this.dialogRef = this.dialog.open(ResultfileDialogComponent, {
+    this.resultFileDialogRef = this.dialog.open(ResultfileDialogComponent, {
       hasBackdrop: true
     });
 
-    this.dialogRef.afterClosed().pipe(filter(resultfile => resultfile)).subscribe(resultfile => {
+    this.resultFileDialogRef.afterClosed().pipe(filter(resultfile => resultfile)).subscribe(resultfile => {
       this.resultfileService.post(resultfile).subscribe(
         (res) => {
           this.refreshItemsList();

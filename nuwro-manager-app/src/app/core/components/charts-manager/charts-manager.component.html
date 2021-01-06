@@ -38,10 +38,12 @@
     <mat-divider></mat-divider>
 
     <div id="chart-types-container" *ngIf="!is3D; else chart3dTypePicker">
-      <mat-icon svgIcon="line-chart-icon" aria-hidden="false" aria-label="Line chart" (click)=drawLineChart()>
-      </mat-icon>
-      <mat-icon svgIcon="bar-chart-icon" aria-hidden="false" aria-label="Bar chart" (click)=drawBarChart()></mat-icon>
-      <mat-icon svgIcon="pie-chart-icon" aria-hidden="false" aria-label="Pie chart" (click)=drawPieChart()></mat-icon>
+      <!--<mat-icon svgIcon="line-chart-icon" aria-hidden="false" aria-label="Line chart" (click)=drawLineChart()></mat-icon>-->
+      <!--<mat-icon svgIcon="bar-chart-icon" aria-hidden="false" aria-label="Bar chart" (click)=drawBarChart()></mat-icon>-->
+      <!--<mat-icon svgIcon="pie-chart-icon" aria-hidden="false" aria-label="Pie chart" (click)=drawPieChart()></mat-icon>-->
+      <button mat-button type="button" (click)="drawScatter3d()">Line</button>
+      <button mat-button type="button" (click)="drawBarChart()">Bar</button>
+      <button mat-button type="button" (click)="drawPieChart()">Pie</button>
     </div>
 
   </div>
@@ -52,7 +54,7 @@
 <ng-template #chart3dTypePicker>
   <div id="chart-types-container">
     <button mat-button type="button" (click)="drawScatter3d()">Scatter</button>
-    <button mat-button type="button" (click)="drawSurface3d()">Surface</button>
+    <!--<button mat-button type="button" (click)="drawSurface3d()">Surface</button>-->
     <button mat-button type="button" (click)="drawLine3d()">Line</button>
   </div>
 </ng-template>

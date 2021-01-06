@@ -108,6 +108,21 @@ export class ResultfileDataset {
       x: this.x,
       y: this.y,
       z: this.z,
+      error_x: {
+        type: 'data',
+        array: this.xError,
+        visible: true
+      },
+      error_y: {
+        type: 'data',
+        array: this.yError,
+        visible: true
+      },
+      error_z: {
+        type: 'data',
+        array: this.zError,
+        visible: true
+      },
       opacity: 1,
       line: {
         width: 6,

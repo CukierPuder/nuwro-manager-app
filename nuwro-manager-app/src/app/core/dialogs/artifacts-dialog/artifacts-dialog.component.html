@@ -7,7 +7,7 @@
     <div id="artifacts-container">
         <mat-list>
             <ng-container *ngFor="let artifact of artifacts">
-                <a href="{{downloadHost}}{{artifact.link}}" download>{{artifact.filename}}></a>
+                <!--<a href="{{downloadHost}}{{artifact.link}}" download>{{artifact.filename}}></a>-->
                 <mat-list-item (click)="redirectToFile(artifact.link)" download>{{artifact.filename}}</mat-list-item>
             </ng-container>
         </mat-list>
@@ -15,5 +15,5 @@
     <div id="drop-area">
         <app-file-drop [mode]="mode" [resultfileId]="resultfileId" (uploaded)="fetchArtifacts($event)"></app-file-drop>
     </div>
-
+    <button mat-raised-button color="warn" type="button" (click)="deleteResultfile()">DELETE FILE</button>
 </div>
