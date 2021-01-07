@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  HOST_ADDR: 'http://127.0.0.1:8000'
+  HOST_ADDR: 'http://cukierpuder.eu.pythonanywhere.com'
 };
 
 /*
