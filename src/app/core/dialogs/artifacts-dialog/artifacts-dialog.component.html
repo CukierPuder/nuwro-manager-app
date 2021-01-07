@@ -13,7 +13,7 @@
         </mat-list>
     </div>
     <div id="drop-area">
-        <app-file-drop [mode]="mode" [resultfileId]="resultfileId" (uploaded)="fetchArtifacts($event)"></app-file-drop>
+        <app-file-drop [mode]="mode" [resultfileId]="resultfileId" (uploaded)="fetchArtifacts()"></app-file-drop>
     </div>
     <button mat-raised-button color="warn" type="button" (click)="deleteResultfile()">DELETE FILE</button>
 </div>

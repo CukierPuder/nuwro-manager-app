@@ -35,7 +35,7 @@ export class ArtifactsDialogComponent implements OnInit {
     this.fetchArtifacts();
   }
 
-  private fetchArtifacts(): void {
+  public fetchArtifacts(): void {
     this.artifactService.getRelatedArtifacts(this.resultfileId).subscribe(
       (res) => {
         this.artifacts = res;
@@ -47,7 +47,7 @@ export class ArtifactsDialogComponent implements OnInit {
     )
   }
 
-  private deleteResultfile(): void {
+  public deleteResultfile(): void {
     this.resultfileService.deleteFile(this.resultfileId).subscribe(
       (res) => {},
       (err) => {}
